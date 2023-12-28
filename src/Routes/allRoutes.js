@@ -73,52 +73,52 @@ import Register from "../pages/Authentication/Register";
 import UserProfile from "../pages/Authentication/user-profile";
 import NewTeam from "../pages/Pages/Team/NewTeam";
 // import NewCutomer from "../pages/Ecommerce/EcommerceCustomers/NewCutomer";
-import NewCustomer from "../pages/Ecommerce/EcommerceCustomers/NewCustomer";
-import Content from "../pages/ContentManagement/Content";
-import AddContent from "../pages/ContentManagement/AddContent";
-import EditContent from "../pages/ContentManagement/EditContent";
-import ManageGallery from "../pages/GalleryManagement/ManageGallery";
-import ManageGalleryCat from "../pages/GalleryManagement/ManageGalleryCat";
-import AddGalleryCat from "../pages/GalleryManagement/AddGalleryCat";
-import EditGalleryCat from "../pages/GalleryManagement/EditGalleryCat";
-import AddGalleryDetails from "../pages/GalleryManagement/AddGalleryDetails";
-import EditGalleryDetails from "../pages/GalleryManagement/EditGalleryDetails";
-import CategoryMaster from "../pages/manageCategory/Category";
-import SubCategoryMaster from "../pages/manageCategory/subCategory";
-import SubSubCategoryMaster from "../pages/manageCategory/subSubCategory";
+// import NewCustomer from "../pages/Ecommerce/EcommerceCustomers/NewCustomer";
+// import Content from "../pages/ContentManagement/Content";
+// import AddContent from "../pages/ContentManagement/AddContent";
+// import EditContent from "../pages/ContentManagement/EditContent";
+// import ManageGallery from "../pages/GalleryManagement/ManageGallery";
+// import ManageGalleryCat from "../pages/GalleryManagement/ManageGalleryCat";
+// import AddGalleryCat from "../pages/GalleryManagement/AddGalleryCat";
+// import EditGalleryCat from "../pages/GalleryManagement/EditGalleryCat";
+// import AddGalleryDetails from "../pages/GalleryManagement/AddGalleryDetails";
+// import EditGalleryDetails from "../pages/GalleryManagement/EditGalleryDetails";
+// import CategoryMaster from "../pages/manageCategory/Category";
+// import SubCategoryMaster from "../pages/manageCategory/subCategory";
+// import SubSubCategoryMaster from "../pages/manageCategory/subSubCategory";
 // import EcommerceNewAddProduct from "../pages/Ecommerce/EcommerceProducts/EcommerceNewAddProduct";
-import Stocks from "../pages/Stocks Management/Stocks";
-import AddStocks from "../pages/Stocks Management/AddStocks";
-import EditStocks from "../pages/Stocks Management/EditStocks";
-import Coupons from "../pages/Coupon Management/Coupons";
-import AddCoupons from "../pages/Coupon Management/AddCoupons";
-import EditCoupons from "../pages/Coupon Management/EditCoupons";
+// import Stocks from "../pages/Stocks Management/Stocks";
+// import AddStocks from "../pages/Stocks Management/AddStocks";
+// import EditStocks from "../pages/Stocks Management/EditStocks";
+// import Coupons from "../pages/Coupon Management/Coupons";
+// import AddCoupons from "../pages/Coupon Management/AddCoupons";
+// import EditCoupons from "../pages/Coupon Management/EditCoupons";
 import AddUser from "../pages/Pages/Team/AddUser";
-import ProductMaster from "../pages/products/product";
+// import ProductMaster from "../pages/products/product";
 
-import AddProduct from "../pages/products/addProduct";
+// import AddProduct from "../pages/products/addProduct";
 
-import AllOrders from "../pages/Order Managemenr/AllOrders";
-import DailyPriceRates from "../pages/DailyGoldSilverPrice/DailyPriceRates";
-import BannerMaster from "../pages/BannerMaster/bannerMaster.js"
-import BlogMaster from "../pages/BlogMaster/BlogsMaster";
+// import AllOrders from "../pages/Order Managemenr/AllOrders";
+// import DailyPriceRates from "../pages/DailyGoldSilverPrice/DailyPriceRates";
+// import BannerMaster from "../pages/BannerMaster/bannerMaster.js"
+// import BlogMaster from "../pages/BlogMaster/BlogsMaster";
 
-import InvoiceDetails from "../pages/Order Managemenr/inVoice";
+// import InvoiceDetails from "../pages/Order Managemenr/inVoice";
 
 import NewDashboard from "../Dashboard/NewDashboard";
-import AddColor from "../pages/ColorMaster/AddColor";
-import AllColors from "../pages/ColorMaster/AllColors";
-import AddSize from "../pages/SizeMaster/AddSize";
-import AllSize from "../pages/SizeMaster/AllSize";
-import AddVariation from "../pages/products/AddVariation";
-import CustomerReports from "../pages/Reports/CustomerReports";
-import ProductsReports from "../pages/Reports/ProductsReports";
-import CustomerOrders from "../pages/Ecommerce/EcommerceCustomers/CustomerOrders";
-import StockReports from "../pages/Reports/StockReports.js";
-import CustomersByDate from "../pages/Reports/CustomersByDate.js";
-import BlogCategory from "../pages/BlogMaster/BlogCategory.js";
-import SubScribe from "../pages/Subscribe/SubScribe.js";
-import Contact from "../pages/Contact/Contact.js";
+// import AddColor from "../pages/ColorMaster/AddColor";
+// import AllColors from "../pages/ColorMaster/AllColors";
+// import AddSize from "../pages/SizeMaster/AddSize";
+// import AllSize from "../pages/SizeMaster/AllSize";
+// import AddVariation from "../pages/products/AddVariation";
+// import CustomerReports from "../pages/Reports/CustomerReports";
+// import ProductsReports from "../pages/Reports/ProductsReports";
+// import CustomerOrders from "../pages/Ecommerce/EcommerceCustomers/CustomerOrders";
+// import StockReports from "../pages/Reports/StockReports.js";
+// import CustomersByDate from "../pages/Reports/CustomersByDate.js";
+// import BlogCategory from "../pages/BlogMaster/BlogCategory.js";
+// import SubScribe from "../pages/Subscribe/SubScribe.js";
+// import Contact from "../pages/Contact/Contact.js";
 
 
 // import customerNew from "../pages/Ecommerce/EcommerceCustomers/customerNew";
@@ -127,70 +127,70 @@ const authProtectedRoutes = [
   // { path: "/form", component: <NewDashboard /> },
   // { path: "/addproduct", component: <SignState><EcommerceNewAddProduct /></SignState> },
 
-  { path: "/apps-ecommerce-orders", component: <EcommerceOrders /> },
+  // { path: "/apps-ecommerce-orders", component: <EcommerceOrders /> },
   // { path: "/apps-ecommerce-order-details", component: <EcommerceOrderDetail /> },
-  { path: "/apps-ecommerce-customers", component: <EcommerceCustomers /> },
-  { path: "/customers", component: <SignState><NewCustomer/></SignState> },
-  { path: "/customerorder/:id", component: <SignState><CustomerOrders/></SignState> },
+  // { path: "/apps-ecommerce-customers", component: <EcommerceCustomers /> },
+  // { path: "/customers", component: <SignState><NewCustomer/></SignState> },
+  // { path: "/customerorder/:id", component: <SignState><CustomerOrders/></SignState> },
   { path: "/apps-ecommerce-cart", component: <EcommerceCart /> },
   { path: "/apps-ecommerce-checkout", component: <EcommerceCheckout /> },
 
   // category Master
-  { path: "/category-master", component: <CategoryMaster /> },
-  { path: "/sub-category-master", component: <SubCategoryMaster/> },
-  { path: "/sub-sub-category-master", component: <SubSubCategoryMaster/> },
+  // { path: "/category-master", component: <CategoryMaster /> },
+  // { path: "/sub-category-master", component: <SubCategoryMaster/> },
+  // { path: "/sub-sub-category-master", component: <SubSubCategoryMaster/> },
 
 
   // product master
-  { path: "/allproducts", component: <ProductMaster /> },
+  // { path: "/allproducts", component: <ProductMaster /> },
   // { path: "/product-form", component: <ProductForm /> },
-  { path: "/add-product", component: <AddProduct /> },
-  { path: "/add-product/:id", component: <AddProduct /> },
-  { path: "/addvariation/:id", component: <AddVariation /> },
-  { path: "/addcolor", component: <SignState><AddColor /></SignState> },
-  { path: "/allcolors", component: <SignState><AllColors /></SignState> },
-  { path: "/addsize", component: <SignState><AddSize /></SignState> },
-  { path: "/allsizes", component: <SignState><AllSize /></SignState> },
+  // { path: "/add-product", component: <AddProduct /> },
+  // { path: "/add-product/:id", component: <AddProduct /> },
+  // { path: "/addvariation/:id", component: <AddVariation /> },
+  // { path: "/addcolor", component: <SignState><AddColor /></SignState> },
+  // { path: "/allcolors", component: <SignState><AllColors /></SignState> },
+  // { path: "/addsize", component: <SignState><AddSize /></SignState> },
+  // { path: "/allsizes", component: <SignState><AllSize /></SignState> },
 
   //bannner master
-  { path: "/banner-master", component: <BannerMaster /> },
-  
-  // Content
-  { path: "/contentmanage", component: <SignState><Content /></SignState> },
-  { path: "/addcontent", component: <SignState><AddContent /></SignState> },
-  { path: "/updatecontent/:id", component: <SignState><EditContent /></SignState> },
+  // { path: "/banner-master", component: <BannerMaster /> },
 
-  // Gallery Content 
-  { path: "/gallerycontent", component: <SignState><ManageGallery/></SignState> },
-  { path: "/gallerycatcontent", component: <SignState><ManageGalleryCat/></SignState> },
-  { path: "/creategallery", component: <SignState><AddGalleryCat/></SignState> },
-  { path: "/editgallerycat/:id", component: <SignState><EditGalleryCat/></SignState> },
-  { path: "/creategallerydet", component: <SignState><AddGalleryDetails/></SignState> },
-  { path: "/editgallerydet/:id", component: <SignState><EditGalleryDetails/></SignState> },
+  // Content
+  // { path: "/contentmanage", component: <SignState><Content /></SignState> },
+  // { path: "/addcontent", component: <SignState><AddContent /></SignState> },
+  // { path: "/updatecontent/:id", component: <SignState><EditContent /></SignState> },
+
+  // // Gallery Content 
+  // { path: "/gallerycontent", component: <SignState><ManageGallery/></SignState> },
+  // { path: "/gallerycatcontent", component: <SignState><ManageGalleryCat/></SignState> },
+  // { path: "/creategallery", component: <SignState><AddGalleryCat/></SignState> },
+  // { path: "/editgallerycat/:id", component: <SignState><EditGalleryCat/></SignState> },
+  // { path: "/creategallerydet", component: <SignState><AddGalleryDetails/></SignState> },
+  // { path: "/editgallerydet/:id", component: <SignState><EditGalleryDetails/></SignState> },
 
   // Stocks
-  { path: "/stocks", component: <SignState><Stocks/></SignState> },
-  { path: "/addstocks", component: <SignState><AddStocks/></SignState> },
-  { path: "/editstocks/:id", component: <SignState><EditStocks/></SignState> },
+  // { path: "/stocks", component: <SignState><Stocks/></SignState> },
+  // { path: "/addstocks", component: <SignState><AddStocks/></SignState> },
+  // { path: "/editstocks/:id", component: <SignState><EditStocks/></SignState> },
 
   // Coupons
-  { path: "/coupons", component: <SignState><Coupons/></SignState> },
-  { path: "/addcoupon", component: <SignState><AddCoupons/></SignState> },
-  { path: "/editcoupon/:id", component: <SignState><EditCoupons/></SignState> },
+  // { path: "/coupons", component: <SignState><Coupons/></SignState> },
+  // { path: "/addcoupon", component: <SignState><AddCoupons/></SignState> },
+  // { path: "/editcoupon/:id", component: <SignState><EditCoupons/></SignState> },
 
 
   // Orders
-  { path: "/orders", component: <SignState><AllOrders/></SignState> },
-  { path: "/vieworder/:id", component: <SignState><EcommerceOrderDetail/></SignState> },
-{path:'/invoice/:id',component:<SignState><InvoiceDetails/></SignState>},
-{path:'/customerreports',component:<SignState><CustomerReports/></SignState>},
-{path:'/customerbydatereport',component:<SignState><CustomersByDate/></SignState>},
-{path:'/productreport',component:<SignState><ProductsReports/></SignState>},
-{path:'/stockreport',component:<SignState><StockReports/></SignState>},
+//   { path: "/orders", component: <SignState><AllOrders/></SignState> },
+//   { path: "/vieworder/:id", component: <SignState><EcommerceOrderDetail/></SignState> },
+// {path:'/invoice/:id',component:<SignState><InvoiceDetails/></SignState>},
+// {path:'/customerreports',component:<SignState><CustomerReports/></SignState>},
+// {path:'/customerbydatereport',component:<SignState><CustomersByDate/></SignState>},
+// {path:'/productreport',component:<SignState><ProductsReports/></SignState>},
+// {path:'/stockreport',component:<SignState><StockReports/></SignState>},
   
 
   //Daily Price 
-  { path: "/dailyrates", component: <SignState><DailyPriceRates/></SignState> },
+  // { path: "/dailyrates", component: <SignState><DailyPriceRates/></SignState> },
 
 
 
@@ -207,11 +207,11 @@ const authProtectedRoutes = [
   { path: "/apps-projects-create", component: <CreateProject /> },
 
 
-  { path: "/blog-master", component: <SignState><BlogMaster /></SignState> },
-  { path: "/blog-category", component: <SignState><BlogCategory /></SignState> },
+  // { path: "/blog-master", component: <SignState><BlogMaster /></SignState> },
+  // { path: "/blog-category", component: <SignState><BlogCategory /></SignState> },
   
-  { path: "/subscription", component: <SignState><SubScribe /></SignState> },
-  { path: "/contactus", component: <SignState><Contact /></SignState> },
+  // { path: "/subscription", component: <SignState><SubScribe /></SignState> },
+  // { path: "/contactus", component: <SignState><Contact /></SignState> },
 
 
 
