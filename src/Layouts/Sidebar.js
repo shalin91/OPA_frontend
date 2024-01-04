@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import SimpleBar from "simplebar-react";
 //import logo
-import lightLogo from "../assets/images/PushtiShangarLight.png";
+import lightLogo from "../assets/images/logo-white.png";
 import Mainlogo from "../assets/images/pushtishangarLogo.png";
 
 
@@ -42,7 +42,7 @@ const Sidebar = ({ layoutType }) => {
             <span className="logo-sm">
               <img 
                src={lightLogo} 
-              alt="" height="22" />
+              alt="" height="20" />
             </span>
             <span className="logo-lg">
               <img 
@@ -55,12 +55,12 @@ const Sidebar = ({ layoutType }) => {
             <span className="logo-sm">
               <img 
                src={lightLogo}
-               alt="" height="22" />
+               alt="" height="20" />
             </span>
             <span className="logo-lg">
               <img 
                src={lightLogo} 
-              alt="" height="60" />
+              alt="" height="50" />
             </span>
           </Link>
           <button

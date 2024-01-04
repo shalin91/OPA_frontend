@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { Dropdown, DropdownMenu, DropdownToggle, Form } from "reactstrap";
 
 //import images
-import logoSm from "../assets/images/logo-sm.png";
-import logoDark from "../assets/images/logo-dark.png";
-import logoLight from "../assets/images/logo-light.png";
+import logoSm from "../assets/images/logo-white.png";
+import logoDark from "../assets/images/logo-white.png";
+import logoLight from "../assets/images/logo-white.png";
 
 //import Components
 import SearchOption from "../Components/Common/SearchOption";

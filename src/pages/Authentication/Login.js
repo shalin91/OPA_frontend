@@ -15,7 +15,8 @@ import {
   Alert,
 } from "reactstrap";
 import ParticlesAuth from "../AuthenticationInner/ParticlesAuth";
-import logo from "../../assets/images/PushtiShangarLight.png";
+import logo from "../../assets/images/logo-white.png";
+import { GoogleLogin } from "react-google-login";
 
 //redux
 import { Link, useNavigate } from "react-router-dom";
@@ -41,17 +42,26 @@ const Login = () => {
   const [confrimPasswordShow, setConfrimPasswordShow] = useState(false);
   const [buttnLoading, setButtnLoading] = useState(false);
 
+  const handleGoogleSuccess = (response) => {
+    console.log('Google login success:', response);
+    // Add your logic to handle the successful login
+  };
+  
+  const handleGoogleFailure = (error) => {
+    console.error('Google login failure:', error);
+    // Add your logic to handle the login failure
+  };
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setButtnLoading(true);
 
     try {
-
       // const res = await loginUser(UserInfo);
       const res = await axios.post(`${url}/api/login`, UserInfo);
-     
+
       if (res.success) {
-        
         window.localStorage.setItem("loggedIn", true);
         window.localStorage.setItem("authToken", res.token);
         window.localStorage.setItem("user", JSON.stringify(res));
@@ -59,20 +69,19 @@ const Login = () => {
         if (res.roles.role === "Admin") {
           setSuccess(res.msg);
           navigate("/dashboard");
-          
         } else {
           setSuccess(res.msg);
           setTimeout(() => {
             navigate("/dashboard");
           }, 3000);
         }
-      }else{
+      } else {
         setError(res.msg);
         setTimeout(() => {
           setError("");
         }, 3000);
       }
-      
+
       setButtnLoading(false);
     } catch (error) {
       const code = error.split(" ")[error.split(" ").length - 1];
@@ -80,7 +89,9 @@ const Login = () => {
       if (code === "401") {
         setError("Invalid credentials. Please check your email and password.");
       } else if (code === "403") {
-        setError("Access denied. You don't have permission to access this resource.");
+        setError(
+          "Access denied. You don't have permission to access this resource."
+        );
       } else {
         setError("An error occurred. Please try again later.");
       }
@@ -92,7 +103,7 @@ const Login = () => {
     }
   };
 
-  document.title = "Pushtishangar | Admin Login";
+  document.title = "OPA | Login";
   return (
     <React.Fragment>
       <ParticlesAuth>
@@ -104,8 +115,8 @@ const Login = () => {
                   <div>
                     <img
                       src={logo}
-                      alt="pushti shangar"
-                      style={{ maxHeight: "200px" }}
+                      alt="OPA"
+                      style={{ maxHeight: "100px" }}
                     ></img>
                   </div>
                   {/* <p className="mt-3 fs-15 fw-medium">
@@ -121,7 +132,9 @@ const Login = () => {
                   <CardBody className="p-4">
                     <div className="text-center mt-2">
                       <h5 className="text-primary">Welcome Back !</h5>
-                      <p className="text-muted">Sign in to continue.</p>
+                      <p className="text-muted">
+                        Sign in to continue to One Portal for All (OPA) System.
+                      </p>
                     </div>
                     {Error && Error ? (
                       <Alert color="danger"> {Error} </Alert>
@@ -227,19 +240,31 @@ const Login = () => {
                           </Button>
                         )}
 
-                        {/* <div className="mt-4 text-center">
+                        <div className="mt-4 text-center">
                           <div className="signin-other-title">
                             <h5 className="fs-13 mb-4 title">Sign In with</h5>
                           </div>
                           <div>
+                          <GoogleLogin
+            clientId="754656440817-pu9uar2o5tkubv0g88nbvpb9vp8ffmrc.apps.googleusercontent.com"
+            render={(renderProps) => (
+              <span
+                onClick={renderProps.onClick}
+                disabled={renderProps.disabled}
+                style={{color:"black"}}
+              >
+                <i className="ri-google-fill" style={{color:"black" , fontSize:"30px"}} />
+              </span>
+            )}
+            onSuccess={handleGoogleSuccess}
+            onFailure={handleGoogleFailure}
+            cookiePolicy={'single_host_origin'}
+            prompt="select_account"
+            googleToken
+          />
                           </div>
-                        </div> */}
-                      </Form>
-                    </div>
-                  </CardBody>
-                </Card>
-
-                <div className="mt-4 text-center">
+                        </div>
+                        <div className="mt-4 text-center">
                   <p className="mb-0">
                     Forgot Password ?{" "}
                     <Link
@@ -251,6 +276,12 @@ const Login = () => {
                     </Link>{" "}
                   </p>
                 </div>
+                      </Form>
+                    </div>
+                  </CardBody>
+                </Card>
+
+
               </Col>
             </Row>
           </Container>
