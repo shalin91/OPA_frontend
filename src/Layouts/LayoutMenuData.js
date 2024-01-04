@@ -19,7 +19,7 @@ const Navdata = () => {
   const [isCategory, setCategory] = useState(false);
   const [isApps1, setIsApps1] = useState(false);
   const [isDepartment, setIsDepartment] = useState(false);
-  const [isDocument,setIsDocument]=useState(false);
+  const [istask,setIsTask]=useState(false);
   // Apps
   const [isEmail, setEmail] = useState(false);
   const [isSubEmail, setSubEmail] = useState(false);
@@ -247,30 +247,30 @@ const Navdata = () => {
     },
 
     {
-      id: "documentmaster",
-      label: "Document Master",
-      icon: "ri-settings-fill",
+      id: "taskmaster",
+      label: "Task Master",
+      icon: "ri-file-list-3-line",
       link: "/#",
       click: function (e) {
         e.preventDefault();
-        setIsDocument(!isDocument); // Assuming setIsApps1 is used for Master
-        setIscurrentState("documentmaster");
+        setIsTask(!istask); // Assuming setIsApps1 is used for Master
+        setIscurrentState("taskmaster");
         updateIconSidebar(e);
       },
-      stateVariables: isDocument, // Assuming isApps1 is used for Master
+      stateVariables: istask, // Assuming isApps1 is used for Master
       subItems: [
         {
           id: "appsecommerce13",
-          label: "Manage Document",
-          link: "/manage-document",
-          parentId: "documentmaster",
+          label: "Add Task",
+          link: "/add-taskmaster",
+          parentId: "taskmaster",
           stateVariables: isEcommerce,
         },
         {
           id: "appsecommerce12",
-          label: "Document Access",
-          link: "/document-access",
-          parentId: "documentmaster",
+          label: "Assign Task",
+          link: "/assign-master",
+          parentId: "taskmaster",
           stateVariables: isEcommerce,
         },
       ],
