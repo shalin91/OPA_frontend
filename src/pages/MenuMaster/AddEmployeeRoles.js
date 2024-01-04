@@ -1,3 +1,4 @@
+
 import React, { useContext, useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -14,7 +15,7 @@ import {
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
-const AddDepType = () => {
+const AddEmployeeRoles = () => {
   return (
     <>
       <UiContent />
@@ -62,7 +63,7 @@ const AddDepType = () => {
                               <Col className="col-sm">
                                 <div className="d-flex justify-content-sm-between">
                                   <h2 className="card-title mb-0 justify-content-sm-start">
-                                    <strong>Add Department Type</strong>
+                                    <strong>Employee Role Detail</strong>
                                   </h2>
                                 </div>
                               </Col>
@@ -98,12 +99,38 @@ const AddDepType = () => {
                                   
                                 </Col>
                                 <Col sm={4}>
-                                  <div className="mb-3">
+                                <div className="mb-3">
                                     <label
                                       className="form-label"
                                       htmlFor="product-orders-input"
                                     >
                                       Department Type
+                                    </label>
+                                    <div className="">
+                                    <select
+                                      className="form-select"
+                                      name="checkupTyp"
+                                      onBlur={handleBlur}
+                                      value={values.checkupTyp}
+                                      onChange={handleChange}
+                                    >
+                                      <option value="">--select--</option>
+                                      <option value="abc">abc</option>
+                                      <option value="def">def</option>
+                                      <option value="fgh">fgh</option>
+                                    </select>
+                                  </div>
+                                  </div>
+                                  
+                                  
+                                </Col>
+                                <Col sm={4}>
+                                  <div className="mb-3">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="product-orders-input"
+                                    >
+                                      Employee Role Name
                                     </label>
                                     <div className="mb-3">
                                       <Input
@@ -126,7 +153,7 @@ const AddDepType = () => {
                                     </div>
                                   </div>
                                 </Col>
-                                <Col sm={4}></Col>
+                                
                                 <Col sm={2}>
                                   <div className="mt-3">
                                     <Input
@@ -165,4 +192,4 @@ const AddDepType = () => {
   );
 };
 
-export default AddDepType;
+export default AddEmployeeRoles;
