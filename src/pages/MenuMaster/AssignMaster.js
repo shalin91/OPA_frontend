@@ -4,6 +4,7 @@ import UiContent from "../../Components/Common/UiContent";
 import PreviewCardHeader from "../../Components/Common/PreviewCardHeader";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/brands/slack.png";
+import Example from "./FormOne";
 import {
   Button,
   Card,
@@ -23,6 +24,9 @@ import {
   Row,
 } from "reactstrap";
 const AssignMaster = () => {
+  const view =()=>{
+    
+  }
   return (
     <>
       <UiContent />
@@ -104,14 +108,8 @@ const AssignMaster = () => {
                                   </button>
                                 </div>
                                 </div>
-                                <div className="flex-grow-1 mt-3 " style={{marginLeft:'20px'}}>
-                                  <button
-                                    type="button"
-                                    class="btn btn-primary btn-icon waves-effect waves-light"
-                                  >
-                                    <i class="ri-eye-line"></i>
-                                  </button>
-                                </div>
+                                {/* //editing code */}
+                                <Example/>
                               
                             </td>
                           </tr>
