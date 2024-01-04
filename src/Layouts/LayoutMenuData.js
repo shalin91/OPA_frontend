@@ -189,7 +189,7 @@ const Navdata = () => {
     {
       id: "master",
       label: "Master",
-      icon: "ri-settings-fill",
+      icon: "ri-pages-line",
       link: "/#",
       click: function (e) {
         e.preventDefault();
@@ -209,7 +209,7 @@ const Navdata = () => {
         {
           id: "appsecommerce4",
           label: "Location Master",
-          link: "/community-update",
+          link: "/location-master",
           parentId: "master",
           stateVariables: isEcommerce,
         },
@@ -219,7 +219,7 @@ const Navdata = () => {
     {
       id: "dmaster",
       label: "Department Master",
-      icon: "ri-settings-fill",
+      icon: "ri-account-circle-line",
       link: "/#",
       click: function (e) {
         e.preventDefault();
@@ -240,6 +240,20 @@ const Navdata = () => {
           id: "appsecommerce7",
           label: "Department Type",
           link: "/department-type",
+          parentId: "dmaster",
+          stateVariables: isEcommerce,
+        },
+        {
+          id: "appsecommerce27",
+          label: "Employee Roles",
+          link: "/employee-roles",
+          parentId: "dmaster",
+          stateVariables: isEcommerce,
+        },
+        {
+          id: "appsecommerce28",
+          label: "Employee Master",
+          link: "/employee-master",
           parentId: "dmaster",
           stateVariables: isEcommerce,
         },
@@ -274,6 +288,13 @@ const Navdata = () => {
           stateVariables: isEcommerce,
         },
       ],
+    },
+    {
+      id: "cmsmaster",
+      label: "CMS Master",
+      icon: "ri-pencil-ruler-2-line",
+      link: "/cmsmaster",
+      stateVariables: isDashboard,
     },
   ];
 

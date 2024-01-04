@@ -124,6 +124,14 @@ import AddTaskMaster from "../pages/MenuMaster/AddTaskMaster";
 import AddTask from "../pages/MenuMaster/AddTask";
 import AssignMaster from "../pages/MenuMaster/AssignMaster";
 import AssignTask from "../pages/MenuMaster/AssignTask";
+import AddCommunity from "../pages/MenuMaster/AddCommunity";
+import LocationMaster from "../pages/MenuMaster/LocationMaster";
+import AddLocation from "../pages/MenuMaster/AddLocation";
+import EmployeeRoles from "../pages/MenuMaster/EmployeeRoles";
+import AddEmployeeRoles from "../pages/MenuMaster/AddEmployeeRoles";
+import EmployeeMaster from "../pages/MenuMaster/EmployeeMaster";
+import AddEmployee from "../pages/MenuMaster/AddEmployee";
+import CMSmaster from "../pages/MenuMaster/CMSmaster";
 
 
 
@@ -155,6 +163,15 @@ const authProtectedRoutes = [
   {path:"/add-task",component:<AddTask/>},
   {path:"/assign-master",component:<AssignMaster/>},
   {path:"/assign-task",component:<AssignTask/>},
+  {path:"/add-community",component:<AddCommunity/>},
+  {path:"/location-master",component:<LocationMaster/>}, 
+  {path:"/add-location",component:<AddLocation/>},
+  {path:"/employee-roles",component:<EmployeeRoles/>},
+  {path:"/add-employeerole",component:<AddEmployeeRoles/>},
+  {path:"/employee-master",component:<EmployeeMaster/>},
+  {path:"/add-employee",component:<AddEmployee/>},
+      
+  {path:"/cmsmaster",component:<CMSmaster/>},
   //Pages
   { path: "/pages-starter", component: <Starter /> },
   { path: "/pages-profile", component: <SignState> <SimplePage /> </SignState> },

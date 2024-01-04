@@ -6,7 +6,7 @@ import { Card, CardHeader, Col, Container, Input, Row,Label } from "reactstrap";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
-const AddDepGroup = () => {
+const AddLocation = () => {
   return (
     <>
       <UiContent />
@@ -54,7 +54,7 @@ const AddDepGroup = () => {
                               <Col className="col-sm">
                                 <div className="d-flex justify-content-sm-between">
                                   <h2 className="card-title mb-0 justify-content-sm-start">
-                                    <strong>Add Department Group</strong>
+                                    <strong>Location Details</strong>
                                   </h2>
                                 </div>
                               </Col>
@@ -69,7 +69,7 @@ const AddDepGroup = () => {
                                   className="form-label"
                                   htmlFor="product-orders-input"
                                 >
-                                  Department Group
+                                  Location Name
                                 </label>
                                 <div className="mb-3">
                                   <Input
@@ -133,6 +133,7 @@ const AddDepGroup = () => {
   );
 };
 
-export default AddDepGroup;
+export default AddLocation;
+
 
 
