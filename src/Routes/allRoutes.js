@@ -120,6 +120,10 @@ import ManageDocument from "../pages/MenuMaster/ManageDocument";
 import AddDocument from "../pages/MenuMaster/AddDocument";
 import DocumentAccess from "../pages/MenuMaster/DocumentAccess";
 import AddDocumentAccess from "../pages/MenuMaster/AddDocumentAccess";
+import AddTaskMaster from "../pages/MenuMaster/AddTaskMaster";
+import AddTask from "../pages/MenuMaster/AddTask";
+import AssignMaster from "../pages/MenuMaster/AssignMaster";
+import AssignTask from "../pages/MenuMaster/AssignTask";
 
 
 
@@ -147,9 +151,10 @@ const authProtectedRoutes = [
   {path:"/document-access",component:<DocumentAccess/>},
   {path:"/add-documentaceess",component:<AddDocumentAccess/>},
 
-
-
- 
+  {path:"/add-taskmaster",component:<AddTaskMaster/>},
+  {path:"/add-task",component:<AddTask/>},
+  {path:"/assign-master",component:<AssignMaster/>},
+  {path:"/assign-task",component:<AssignTask/>},
   //Pages
   { path: "/pages-starter", component: <Starter /> },
   { path: "/pages-profile", component: <SignState> <SimplePage /> </SignState> },
