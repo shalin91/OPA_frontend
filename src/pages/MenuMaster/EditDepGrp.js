@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import UiContent from "../../Components/Common/UiContent";
-
 import {
   Card,
   CardHeader,
@@ -15,27 +14,39 @@ import {
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
+import { useParams } from 'react-router-dom';
 
-const AddDepType = () => {
-  const [depgroup, setDepgroup] = useState(null);
+const EditDepGrp = () => {
 
-  const { GetallDepartmentGroup, addDepType } = useContext(SignContext);
-  const getdepgroup = async () => {
-    const response = await GetallDepartmentGroup();
+  const[grp,setgrp]=useState({
+    name:" ",
+    isActive:" ",
+  }
+  );
+  
+  const { EditDepGrp,setEditDepGrpValues } = useContext(SignContext);
+  const { id } = useParams();
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("department group is required"),
+  });
+ 
+  const gettingid=async()=>{
+     console.log("hello");
+      const res= await EditDepGrp(id);
+      console.log(res);
+      setgrp(res.data);
+      
+    
+      
+  }
 
-    console.log(response.data);
-    setDepgroup(response.data);
-  };
-  const adddeptype = async (values) => {
-    console.log(">>>>>> dep type")
-    console.log(values);
-    const response = await addDepType(values);
-
-    console.log(response);
-  };
   useEffect(() => {
-    getdepgroup();
-  }, []);
+    console.log(grp);
+  }, [grp]);
+  useEffect(()=>{
+    gettingid();
+  },[id])
+
   return (
     <>
       <UiContent />
@@ -49,14 +60,13 @@ const AddDepType = () => {
           <Row>
             <Col lg={12}>
               <Formik
-                // validationSchema={schema}
-                initialValues={{
-                  departmentGroup: "",
-                  name: " ",
-                  isActive: true,
-                }}
+                validationSchema={validationSchema}
+                initialValues={
+                  grp
+                }
                 onSubmit={(values, { resetForm }) => {
-                  adddeptype(values);
+                    console.log(">>>",id,grp.name,grp.isActive)
+                    setEditDepGrpValues(id,grp.name,grp.isActive);
                     resetForm();
                 }}
               >
@@ -71,7 +81,7 @@ const AddDepType = () => {
                   <div className="login">
                     <div className="form">
                       {/* Passing handleSubmit parameter tohtml form onSubmit property */}
-                      <form noValidate onSubmit={handleSubmit}>
+                      <form onSubmit={handleSubmit}>
                         {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
 
                         <Card>
@@ -80,7 +90,7 @@ const AddDepType = () => {
                               <Col className="col-sm">
                                 <div className="d-flex justify-content-sm-between">
                                   <h2 className="card-title mb-0 justify-content-sm-start">
-                                    <strong>Add Department Type</strong>
+                                    <strong>Edit Department Group</strong>
                                   </h2>
                                 </div>
                               </Col>
@@ -97,38 +107,6 @@ const AddDepType = () => {
                                     >
                                       Department Group
                                     </label>
-                                    <div className="">
-                                      <select
-                                        className="form-select"
-                                        name="departmentGroup"
-                                        onBlur={handleBlur}
-                                        value={values.departmentGroup}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="">--select--</option>
-                                        {depgroup && depgroup.length > 0 ? (
-                                          depgroup.map((type) => (
-                                            <option key={type} value={type._id}>
-                                              {type.name}
-                                            </option>
-                                          ))
-                                        ) : (
-                                          <option value="" disabled>
-                                            No locations available
-                                          </option>
-                                        )}
-                                      </select>
-                                    </div>
-                                  </div>
-                                </Col>
-                                <Col sm={4}>
-                                  <div className="mb-3">
-                                    <label
-                                      className="form-label"
-                                      htmlFor="product-orders-input"
-                                    >
-                                      Department Type
-                                    </label>
                                     <div className="mb-3">
                                       <Input
                                         type="text"
@@ -138,19 +116,19 @@ const AddDepType = () => {
                                         name="name"
                                         aria-label="orders"
                                         aria-describedby="product-orders-addon"
-                                        onChange={handleChange}
+                                        onChange={(e) => setgrp({ ...grp, name: e.target.value })}
                                         onBlur={handleBlur}
-                                        value={values.name}
+                                        value={grp.name}
                                       />
                                       <p className="error text-danger">
-                                        {errors.gallaryCategoryTitle &&
-                                          touched.gallaryCategoryTitle &&
-                                          errors.gallaryCategoryTitle}
+                                        {errors.name &&
+                                          touched.name &&
+                                          errors.name}
                                       </p>
                                     </div>
                                   </div>
                                 </Col>
-                                <Col sm={4}></Col>
+                                <Col sm={8}></Col>
                                 <Col sm={2}>
                                   <div className="mt-3">
                                     <Input
@@ -158,8 +136,8 @@ const AddDepType = () => {
                                       id="isActive"
                                       label="Is Active"
                                       name="isActive"
-                                      checked={values.isActive}
-                                      onChange={handleChange}
+                                      checked={grp.isActive}
+                                      onChange={(e) => setgrp({ ...grp, isActive: e.target.checked })}
                                     />
                                     <label className="me-2">Is Active</label>
                                   </div>
@@ -172,7 +150,7 @@ const AddDepType = () => {
                               className="btn btn-success w-sm"
                               type="submit"
                             >
-                              Submit
+                              SUBMIT
                             </button>
                           </div>
                         </Card>
@@ -189,4 +167,4 @@ const AddDepType = () => {
   );
 };
 
-export default AddDepType;
+export default EditDepGrp;

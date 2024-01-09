@@ -2,11 +2,29 @@ import React, { useContext, useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import UiContent from "../../Components/Common/UiContent";
-import { Card, CardHeader, Col, Container, Input, Row,Label } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  Col,
+  Container,
+  Input,
+  Row,
+  Label,
+} from "reactstrap";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
 const AddDepGroup = () => {
+  const { addDepGroup } = useContext(SignContext);
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("department group is required"),
+  });
+  const addDepartmentGroup = async (values) => {
+    const response = await addDepGroup(values);
+
+    console.log(response);
+  };
+
   return (
     <>
       <UiContent />
@@ -20,18 +38,15 @@ const AddDepGroup = () => {
           <Row>
             <Col lg={12}>
               <Formik
-                // validationSchema={schema}
-                initialValues={
-                  {
-                    //   checkupName: "",
-                    //   checkupNumber: "",
-                    //   checkupDate: "",
-                    //   checkupType: "",
-                  }
-                }
+                validationSchema={validationSchema}
+                initialValues={{
+                  name: "",
+                  isActive: true,
+                }}
                 onSubmit={(values, { resetForm }) => {
-                  //   addCheckupDetails(values);
-                  //   resetForm();
+                  console.log(">>>",values)
+                  addDepartmentGroup(values);
+                    resetForm();
                 }}
               >
                 {({
@@ -45,7 +60,7 @@ const AddDepGroup = () => {
                   <div className="login">
                     <div className="form">
                       {/* Passing handleSubmit parameter tohtml form onSubmit property */}
-                      <form noValidate onSubmit={handleSubmit}>
+                      <form onSubmit={handleSubmit}>
                         {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
 
                         <Card>
@@ -62,53 +77,51 @@ const AddDepGroup = () => {
                           </CardHeader>
                           <div className="card-body">
                             <div className="live-preview">
-                            <Row className="align-items-center g-3">
-                            <Col sm={4}>
-                              <div className="mb-3">
-                                <label
-                                  className="form-label"
-                                  htmlFor="product-orders-input"
-                                >
-                                  Department Group
-                                </label>
-                                <div className="mb-3">
-                                  <Input
-                                    type="text"
-                                    className="form-control"
-                                    id="product-orders-input"
-                                    placeholder="Enter Title"
-                                    name="gallaryCategoryTitle"
-                                    aria-label="orders"
-                                    aria-describedby="product-orders-addon"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.gallaryCategoryTitle}
-                                  />
-                                  <p className="error text-danger">
-                                    {errors.gallaryCategoryTitle &&
-                                      touched.gallaryCategoryTitle &&
-                                      errors.gallaryCategoryTitle}
-                                  </p>
-                                </div>
-                              </div>
-                            </Col>
-                            <Col sm={8}></Col>
-                            <Col sm={2}>
-                              <div className="mt-3">
-                                <Input
-                                  type="checkbox"
-                                  id="isActive"
-                                  label="Is Active"
-                                  name="active"
-                                  checked={values.active}
-                                  onChange={handleChange}
-                                />
-                                <label className="me-2">Is Active</label>
-                              </div>
-                            </Col>
-
-                          </Row>
-
+                              <Row className="align-items-center g-3">
+                                <Col sm={4}>
+                                  <div className="mb-3">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="product-orders-input"
+                                    >
+                                      Department Group
+                                    </label>
+                                    <div className="mb-3">
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        id="product-orders-input"
+                                        placeholder="Enter Title"
+                                        name="name"
+                                        aria-label="orders"
+                                        aria-describedby="product-orders-addon"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.name}
+                                      />
+                                      <p className="error text-danger">
+                                        {errors.name &&
+                                          touched.name &&
+                                          errors.name}
+                                      </p>
+                                    </div>
+                                  </div>
+                                </Col>
+                                <Col sm={8}></Col>
+                                <Col sm={2}>
+                                  <div className="mt-3">
+                                    <Input
+                                      type="checkbox"
+                                      id="isActive"
+                                      label="Is Active"
+                                      name="isActive"
+                                      checked={values.isActive}
+                                      onChange={handleChange}
+                                    />
+                                    <label className="me-2">Is Active</label>
+                                  </div>
+                                </Col>
+                              </Row>
                             </div>
                           </div>
                           <div className="text-end mb-3 me-3">
@@ -134,5 +147,3 @@ const AddDepGroup = () => {
 };
 
 export default AddDepGroup;
-
-

@@ -132,6 +132,8 @@ import AddEmployeeRoles from "../pages/MenuMaster/AddEmployeeRoles";
 import EmployeeMaster from "../pages/MenuMaster/EmployeeMaster";
 import AddEmployee from "../pages/MenuMaster/AddEmployee";
 import CMSmaster from "../pages/MenuMaster/CMSmaster";
+import SignContext from "../contextAPI/Context/SignContext";
+import EditDepGrp from "../pages/MenuMaster/EditDepGrp";
 
 
 
@@ -145,14 +147,14 @@ const authProtectedRoutes = [
   {path:"/add-user",component:<AddAdmin/>},
   {path:"/community-update",component:<CommunityUpdateMaster/> },
 
-  {path:"/department-type",component:<DepartmentType/>},
-  {path:"/add-dtype",component:<AddDepType/>},
+  {path:"/department-type",component:<SignState><DepartmentType/></SignState>},
+  {path:"/add-dtype",component:<SignState><AddDepType/></SignState>},
   
   { path: "/apps-projects-list", component: <ProjectList /> },
   { path: "/apps-projects-overview", component: <ProjectOverview /> },
   { path: "/apps-projects-create", component: <CreateProject /> },
-  {path:"/department-group",component:<DepartmentGroup/>},
-  {path:"/add-dgroup" ,component:<AddDepGroup/>},
+  {path:"/department-group",component:<SignState><DepartmentGroup/></SignState>},
+  {path:"/add-dgroup" ,component:<SignState><AddDepGroup/></SignState>},
 
   {path:"/manage-document",component:<ManageDocument/>},
   {path:"/add-document",component:<AddDocument/>},
@@ -165,13 +167,17 @@ const authProtectedRoutes = [
   {path:"/assign-task",component:<AssignTask/>},
   {path:"/add-community",component:<AddCommunity/>},
   {path:"/location-master",component:<LocationMaster/>}, 
-  {path:"/add-location",component:<AddLocation/>},
+  {path:"/add-location",component:<SignState><AddLocation/></SignState>},
   {path:"/employee-roles",component:<EmployeeRoles/>},
-  {path:"/add-employeerole",component:<AddEmployeeRoles/>},
+  {path:"/add-employeerole",component:<SignState><AddEmployeeRoles/></SignState>},
   {path:"/employee-master",component:<EmployeeMaster/>},
   {path:"/add-employee",component:<AddEmployee/>},
       
   {path:"/cmsmaster",component:<CMSmaster/>},
+  {path:"/edit_dggroup/:id",component:<SignState><EditDepGrp/></SignState>},
+
+
+
   //Pages
   { path: "/pages-starter", component: <Starter /> },
   { path: "/pages-profile", component: <SignState> <SimplePage /> </SignState> },

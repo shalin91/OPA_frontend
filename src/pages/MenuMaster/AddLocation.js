@@ -7,6 +7,12 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
 const AddLocation = () => {
+  const { addLocation } = useContext(SignContext);
+  const addlocation = async (values) => {
+    const response = await addLocation(values);
+
+    console.log(response);
+  };
   return (
     <>
       <UiContent />
@@ -23,15 +29,14 @@ const AddLocation = () => {
                 // validationSchema={schema}
                 initialValues={
                   {
-                    //   checkupName: "",
-                    //   checkupNumber: "",
-                    //   checkupDate: "",
-                    //   checkupType: "",
+                      name: "",
+                      isActive: true,
+                    
                   }
                 }
                 onSubmit={(values, { resetForm }) => {
-                  //   addCheckupDetails(values);
-                  //   resetForm();
+                     addlocation(values);
+                     resetForm();
                 }}
               >
                 {({
@@ -77,12 +82,12 @@ const AddLocation = () => {
                                     className="form-control"
                                     id="product-orders-input"
                                     placeholder="Enter Title"
-                                    name="gallaryCategoryTitle"
+                                    name="name"
                                     aria-label="orders"
                                     aria-describedby="product-orders-addon"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={values.gallaryCategoryTitle}
+                                    value={values.name}
                                   />
                                   <p className="error text-danger">
                                     {errors.gallaryCategoryTitle &&
@@ -99,8 +104,8 @@ const AddLocation = () => {
                                   type="checkbox"
                                   id="isActive"
                                   label="Is Active"
-                                  name="active"
-                                  checked={values.active}
+                                  name="isActive"
+                                  checked={values.isActive}
                                   onChange={handleChange}
                                 />
                                 <label className="me-2">Is Active</label>
