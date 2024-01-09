@@ -16,6 +16,36 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
 const AddEmployeeRoles = () => {
+  const [depgroup, setDepgroup] = useState(null);
+  const[deptypebygroup,setDepTypeByGroup]=useState(null);
+  const { GetallDepartmentGroup, GetDepTypeById,addEmployeeRole } = useContext(SignContext);
+  const getdepgroup = async () => {
+    const response = await GetallDepartmentGroup();
+
+    console.log(response.data);
+    setDepgroup(response.data);
+  };
+  const getdeptype = async (id) => {
+    const res = await GetDepTypeById(id);
+    console.log(">>>>final",res);
+    setDepTypeByGroup(res.data);
+  };
+  const handleDepGrp = (e) => {
+    let depgrpid = e.target.value;
+     
+    if(depgrpid)
+    {
+      getdeptype(depgrpid);
+    }
+  };
+  const addemployeerole = async (values) => {
+    const response = await addEmployeeRole(values);
+
+    console.log(response);
+  };
+  useEffect(() => {
+    getdepgroup();
+  }, []);
   return (
     <>
       <UiContent />
@@ -32,15 +62,15 @@ const AddEmployeeRoles = () => {
                 // validationSchema={schema}
                 initialValues={
                   {
-                    //   checkupName: "",
-                    //   checkupNumber: "",
-                    //   checkupDate: "",
-                    //   checkupType: "",
+                        departmentGroup: "",
+                        departmentType: "",
+                        EmployeeRole:"",
+                        isActive:true,
                   }
                 }
                 onSubmit={(values, { resetForm }) => {
-                  //   addCheckupDetails(values);
-                  //   resetForm();
+                    addemployeerole(values);
+                    resetForm();
                 }}
               >
                 {({
@@ -83,15 +113,26 @@ const AddEmployeeRoles = () => {
                                     <div className="">
                                     <select
                                       className="form-select"
-                                      name="checkupType"
+                                      name="departmentGroup"
                                       onBlur={handleBlur}
-                                      value={values.checkupType}
-                                      onChange={handleChange}
+                                      value={values.departmentGroup}
+                                      onChange={(e) => {
+                                      handleChange(e);
+                                      handleDepGrp(e);
+                                     }}
                                     >
                                       <option value="">--select--</option>
-                                      <option value="abc">abc</option>
-                                      <option value="def">def</option>
-                                      <option value="fgh">fgh</option>
+                                      {depgroup && depgroup.length > 0 ? (
+                                          depgroup.map((type) => (
+                                            <option key={type} value={type._id}>
+                                              {type.name}
+                                            </option>
+                                          ))
+                                        ) : (
+                                          <option value="" disabled>
+                                            No grp available
+                                          </option>
+                                        )}
                                     </select>
                                   </div>
                                   </div>
@@ -109,15 +150,23 @@ const AddEmployeeRoles = () => {
                                     <div className="">
                                     <select
                                       className="form-select"
-                                      name="checkupTyp"
+                                      name="departmentType"
                                       onBlur={handleBlur}
-                                      value={values.checkupTyp}
+                                      value={values.departmentType}
                                       onChange={handleChange}
                                     >
                                       <option value="">--select--</option>
-                                      <option value="abc">abc</option>
-                                      <option value="def">def</option>
-                                      <option value="fgh">fgh</option>
+                                      {deptypebygroup && deptypebygroup.length > 0 ? (
+                                        deptypebygroup.map((type) => (
+                                            <option key={type} value={type._id}>
+                                              {type.name}
+                                            </option>
+                                          ))
+                                        ) : (
+                                          <option value="" disabled>
+                                            No grp available
+                                          </option>
+                                        )}
                                     </select>
                                   </div>
                                   </div>
@@ -138,18 +187,18 @@ const AddEmployeeRoles = () => {
                                         className="form-control"
                                         id="product-orders-input"
                                         placeholder="Enter Title"
-                                        name="gallaryCategoryTitle"
+                                        name="EmployeeRole"
                                         aria-label="orders"
                                         aria-describedby="product-orders-addon"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={values.gallaryCategoryTitle}
+                                        value={values.EmployeeRole}
                                       />
-                                      <p className="error text-danger">
+                                      {/* <p className="error text-danger">
                                         {errors.gallaryCategoryTitle &&
                                           touched.gallaryCategoryTitle &&
                                           errors.gallaryCategoryTitle}
-                                      </p>
+                                      </p> */}
                                     </div>
                                   </div>
                                 </Col>
@@ -160,8 +209,8 @@ const AddEmployeeRoles = () => {
                                       type="checkbox"
                                       id="isActive"
                                       label="Is Active"
-                                      name="active"
-                                      checked={values.active}
+                                      name="isActive"
+                                      checked={values.isActive}
                                       onChange={handleChange}
                                     />
                                     <label className="me-2">Is Active</label>

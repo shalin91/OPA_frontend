@@ -168,26 +168,31 @@ const AddEmployee = () => {
                                   </div>
                                 </Col>
                                 <Col sm={4}>
-                                  <div className="mb-3">
+                                <div className="mb-3">
                                     <label
                                       className="form-label"
                                       htmlFor="product-orders-input"
                                     >
-                                      Employee Name
+                                      Employee  Name
                                     </label>
-                                    <div className="">
-                                      <select
-                                        className="form-select"
-                                        name="cheTpe"
-                                        onBlur={handleBlur}
-                                        value={values.cheTpe}
+                                    <div className="mb-3">
+                                      <Input
+                                        type="text"
+                                        className="form-control"
+                                        id="product-orders-input"
+                                        placeholder="Enter Title"
+                                        name="EmployeeRole"
+                                        aria-label="orders"
+                                        aria-describedby="product-orders-addon"
                                         onChange={handleChange}
-                                      >
-                                        <option value="">--select--</option>
-                                        <option value="abc">abc</option>
-                                        <option value="def">def</option>
-                                        <option value="fgh">fgh</option>
-                                      </select>
+                                        onBlur={handleBlur}
+                                        value={values.EmployeeRole}
+                                      />
+                                      {/* <p className="error text-danger">
+                                        {errors.gallaryCategoryTitle &&
+                                          touched.gallaryCategoryTitle &&
+                                          errors.gallaryCategoryTitle}
+                                      </p> */}
                                     </div>
                                   </div>
                                 </Col>
