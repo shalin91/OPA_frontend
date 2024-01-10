@@ -14,39 +14,30 @@ import {
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-const EditDepGrp = () => {
-  const navigate=useNavigate();
-  const[grp,setgrp]=useState({
-    name:" ",
-    isActive:" ",
-  }
-  );
-  
-  const { EditDepGrp,setEditDepGrpValues } = useContext(SignContext);
-  const { id } = useParams();
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required("department group is required"),
-  });
- 
-  const gettingid=async()=>{
-     console.log("hello");
-      const res= await EditDepGrp(id);
-      console.log(res);
-      setgrp(res.data);
-      
+const EditDepType = () => {
+
+    const navigate=useNavigate();
+    const {GetDepTypeByIdForEditing,setEditDepTypeValues } = useContext(SignContext);
+    const { id } = useParams();
+    const[typeid1,settypeid1]=useState({
+        departmentGroup:" ",
+        name:" ",
+        isActive:" ",
+      });
     
+    const gettingdeptype=async (id)=>{
+      const res=await GetDepTypeByIdForEditing(id);
+      settypeid1(res.data)
       
-  }
-
-  useEffect(() => {
-    console.log(grp);
-  }, [grp]);
-  useEffect(()=>{
-    gettingid();
-  },[id])
-
+    }
+    useEffect(() => {
+        
+      }, []);
+    useEffect(()=>{
+         gettingdeptype(id);
+    },[])
   return (
     <>
       <UiContent />
@@ -60,18 +51,17 @@ const EditDepGrp = () => {
           <Row>
             <Col lg={12}>
               <Formik
-                validationSchema={validationSchema}
+                // validationSchema={schema}
                 initialValues={
-                  grp
+                    typeid1
                 }
                 onSubmit={(values, { resetForm }) => {
-                    console.log(">>>",id,grp.name,grp.isActive)
-                   const res=setEditDepGrpValues(id,grp.name,grp.isActive);
-                   if(res)
-                   {
-                    navigate('/department-group')
-                   }
+                    const res=setEditDepTypeValues(id,typeid1.departmentGroup._id,typeid1.name,typeid1.isActive)
+                    if(res){
+                        navigate('/department-type');
+                    }
                     resetForm();
+
                 }}
               >
                 {({
@@ -85,7 +75,7 @@ const EditDepGrp = () => {
                   <div className="login">
                     <div className="form">
                       {/* Passing handleSubmit parameter tohtml form onSubmit property */}
-                      <form onSubmit={handleSubmit}>
+                      <form noValidate onSubmit={handleSubmit}>
                         {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
 
                         <Card>
@@ -94,7 +84,7 @@ const EditDepGrp = () => {
                               <Col className="col-sm">
                                 <div className="d-flex justify-content-sm-between">
                                   <h2 className="card-title mb-0 justify-content-sm-start">
-                                    <strong>Edit Department Group</strong>
+                                    <strong>Edit Department Type</strong>
                                   </h2>
                                 </div>
                               </Col>
@@ -111,6 +101,28 @@ const EditDepGrp = () => {
                                     >
                                       Department Group
                                     </label>
+                                    <div className="">
+                                      <select
+                                        className="form-select"
+                                        name="departmentGroup"
+                                        onBlur={handleBlur}
+                                        value={values.departmentGroup}
+                                        onChange={handleChange}
+                                      >
+                                        <option>{typeid1.departmentGroup.name}</option>
+                                        
+                                      </select>
+                                    </div>
+                                  </div>
+                                </Col>
+                                <Col sm={4}>
+                                  <div className="mb-3">
+                                    <label
+                                      className="form-label"
+                                      htmlFor="product-orders-input"
+                                    >
+                                      Department Type
+                                    </label>
                                     <div className="mb-3">
                                       <Input
                                         type="text"
@@ -120,19 +132,23 @@ const EditDepGrp = () => {
                                         name="name"
                                         aria-label="orders"
                                         aria-describedby="product-orders-addon"
-                                        onChange={(e) => setgrp({ ...grp, name: e.target.value })}
+                                        
+                                        onChange={(e) => settypeid1((prev) => ({ ...prev, name: e.target.value }))}
+
+
+
                                         onBlur={handleBlur}
-                                        value={grp.name}
+                                        value={typeid1.name}
                                       />
                                       <p className="error text-danger">
-                                        {errors.name &&
-                                          touched.name &&
-                                          errors.name}
+                                        {errors.gallaryCategoryTitle &&
+                                          touched.gallaryCategoryTitle &&
+                                          errors.gallaryCategoryTitle}
                                       </p>
                                     </div>
                                   </div>
                                 </Col>
-                                <Col sm={8}></Col>
+                                <Col sm={4}></Col>
                                 <Col sm={2}>
                                   <div className="mt-3">
                                     <Input
@@ -140,8 +156,8 @@ const EditDepGrp = () => {
                                       id="isActive"
                                       label="Is Active"
                                       name="isActive"
-                                      checked={grp.isActive}
-                                      onChange={(e) => setgrp({ ...grp, isActive: e.target.checked })}
+                                      checked={typeid1.isActive}
+                                      onChange={(e) => settypeid1({ ...typeid1, isActive: e.target.checked })}
                                     />
                                     <label className="me-2">Is Active</label>
                                   </div>
@@ -154,7 +170,7 @@ const EditDepGrp = () => {
                               className="btn btn-success w-sm"
                               type="submit"
                             >
-                              SUBMIT
+                              Submit
                             </button>
                           </div>
                         </Card>
@@ -171,4 +187,4 @@ const EditDepGrp = () => {
   );
 };
 
-export default EditDepGrp;
+export default EditDepType;

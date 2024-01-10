@@ -288,7 +288,18 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
-
+  
+  const GetDepTypeByIdForEditing = async (id) => {
+    try {
+      const response = await axios.get(
+        `${url}/departmenttype/getdepartmenttypebyid/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
   const EditDepGrp = async (id) => {
     try {
       const response = await axios.post(
@@ -305,6 +316,17 @@ export const SignState = (props) => {
       const response = await axios.post(
         `${url}/departmentgroup/editdepartmentgroup/${id}`,
         { name, isActive }
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
+  const setEditDepTypeValues = async (id,departmentGroup, name, isActive) => {
+    try {
+      const response = await axios.post(
+        `${url}/departmenttype/editdepartmenttype/${id}`,
+        {departmentGroup,name, isActive}
       );
       return response;
     } catch (error) {
@@ -337,6 +359,8 @@ export const SignState = (props) => {
         deletetype,
         EditDepGrp,
         setEditDepGrpValues,
+        GetDepTypeByIdForEditing,
+        setEditDepTypeValues
       }}
     >
       {props.children}

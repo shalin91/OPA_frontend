@@ -4,15 +4,10 @@ import { SignState } from "../contextAPI/State/SignState";
 //Dashboard
 import DashboardEcommerce from "../pages/DashboardEcommerce";
 
-
 // Project
 import ProjectList from "../pages/Projects/ProjectList";
 import ProjectOverview from "../pages/Projects/ProjectOverview";
 import CreateProject from "../pages/Projects/CreateProject";
-
-
-
-
 
 // //Ecommerce Pages
 import EcommerceOrders from "../pages/Ecommerce/EcommerceOrders/index";
@@ -21,53 +16,48 @@ import EcommerceCustomers from "../pages/Ecommerce/EcommerceCustomers/index";
 import EcommerceCart from "../pages/Ecommerce/EcommerceCart";
 import EcommerceCheckout from "../pages/Ecommerce/EcommerceCheckout";
 
-
-
-
 //AuthenticationInner pages
-import BasicSignIn from '../pages/AuthenticationInner/Login/BasicSignIn';
-import CoverSignIn from '../pages/AuthenticationInner/Login/CoverSignIn';
-import BasicSignUp from '../pages/AuthenticationInner/Register/BasicSignUp';
+import BasicSignIn from "../pages/AuthenticationInner/Login/BasicSignIn";
+import CoverSignIn from "../pages/AuthenticationInner/Login/CoverSignIn";
+import BasicSignUp from "../pages/AuthenticationInner/Register/BasicSignUp";
 import CoverSignUp from "../pages/AuthenticationInner/Register/CoverSignUp";
-import BasicPasswReset from '../pages/AuthenticationInner/PasswordReset/BasicPasswReset';
+import BasicPasswReset from "../pages/AuthenticationInner/PasswordReset/BasicPasswReset";
 //pages
-import Starter from '../pages/Pages/Starter/Starter';
-import SimplePage from '../pages/Pages/Profile/SimplePage/SimplePage';
-import Settings from '../pages/Pages/Profile/Settings/Settings';
-import Timeline from '../pages/Pages/Timeline/Timeline';
-import Faqs from '../pages/Pages/Faqs/Faqs';
-import Pricing from '../pages/Pages/Pricing/Pricing';
-import Gallery from '../pages/Pages/Gallery/Gallery';
-import Maintenance from '../pages/Pages/Maintenance/Maintenance';
-import ComingSoon from '../pages/Pages/ComingSoon/ComingSoon';
-import SiteMap from '../pages/Pages/SiteMap/SiteMap';
-import SearchResults from '../pages/Pages/SearchResults/SearchResults';
+import Starter from "../pages/Pages/Starter/Starter";
+import SimplePage from "../pages/Pages/Profile/SimplePage/SimplePage";
+import Settings from "../pages/Pages/Profile/Settings/Settings";
+import Timeline from "../pages/Pages/Timeline/Timeline";
+import Faqs from "../pages/Pages/Faqs/Faqs";
+import Pricing from "../pages/Pages/Pricing/Pricing";
+import Gallery from "../pages/Pages/Gallery/Gallery";
+import Maintenance from "../pages/Pages/Maintenance/Maintenance";
+import ComingSoon from "../pages/Pages/ComingSoon/ComingSoon";
+import SiteMap from "../pages/Pages/SiteMap/SiteMap";
+import SearchResults from "../pages/Pages/SearchResults/SearchResults";
 
-import CoverPasswReset from '../pages/AuthenticationInner/PasswordReset/CoverPasswReset';
-import BasicLockScreen from '../pages/AuthenticationInner/LockScreen/BasicLockScr';
-import CoverLockScreen from '../pages/AuthenticationInner/LockScreen/CoverLockScr';
-import BasicLogout from '../pages/AuthenticationInner/Logout/BasicLogout';
-import CoverLogout from '../pages/AuthenticationInner/Logout/CoverLogout';
-import BasicSuccessMsg from '../pages/AuthenticationInner/SuccessMessage/BasicSuccessMsg';
-import CoverSuccessMsg from '../pages/AuthenticationInner/SuccessMessage/CoverSuccessMsg';
-import BasicTwosVerify from '../pages/AuthenticationInner/TwoStepVerification/BasicTwosVerify';
-import CoverTwosVerify from '../pages/AuthenticationInner/TwoStepVerification/CoverTwosVerify';
-import Basic404 from '../pages/AuthenticationInner/Errors/Basic404';
-import Cover404 from '../pages/AuthenticationInner/Errors/Cover404';
-import Alt404 from '../pages/AuthenticationInner/Errors/Alt404';
-import Error500 from '../pages/AuthenticationInner/Errors/Error500';
+import CoverPasswReset from "../pages/AuthenticationInner/PasswordReset/CoverPasswReset";
+import BasicLockScreen from "../pages/AuthenticationInner/LockScreen/BasicLockScr";
+import CoverLockScreen from "../pages/AuthenticationInner/LockScreen/CoverLockScr";
+import BasicLogout from "../pages/AuthenticationInner/Logout/BasicLogout";
+import CoverLogout from "../pages/AuthenticationInner/Logout/CoverLogout";
+import BasicSuccessMsg from "../pages/AuthenticationInner/SuccessMessage/BasicSuccessMsg";
+import CoverSuccessMsg from "../pages/AuthenticationInner/SuccessMessage/CoverSuccessMsg";
+import BasicTwosVerify from "../pages/AuthenticationInner/TwoStepVerification/BasicTwosVerify";
+import CoverTwosVerify from "../pages/AuthenticationInner/TwoStepVerification/CoverTwosVerify";
+import Basic404 from "../pages/AuthenticationInner/Errors/Basic404";
+import Cover404 from "../pages/AuthenticationInner/Errors/Cover404";
+import Alt404 from "../pages/AuthenticationInner/Errors/Alt404";
+import Error500 from "../pages/AuthenticationInner/Errors/Error500";
 
 import BasicPasswCreate from "../pages/AuthenticationInner/PasswordCreate/BasicPasswCreate";
 import CoverPasswCreate from "../pages/AuthenticationInner/PasswordCreate/CoverPasswCreate";
 import Offlinepage from "../pages/AuthenticationInner/Errors/Offlinepage";
-
 
 //login
 import Login from "../pages/Authentication/Login";
 import ForgetPasswordPage from "../pages/Authentication/ForgetPassword";
 import Logout from "../pages/Authentication/Logout";
 import Register from "../pages/Authentication/Register";
-
 
 // User Profile
 import UserProfile from "../pages/Authentication/user-profile";
@@ -103,8 +93,6 @@ import AddUser from "../pages/Pages/Team/AddUser";
 // import BannerMaster from "../pages/BannerMaster/bannerMaster.js"
 // import BlogMaster from "../pages/BlogMaster/BlogsMaster";
 
-
-
 import NewDashboard from "../Dashboard/NewDashboard";
 import MenuMater from "../pages/MenuMaster/MenuMater";
 import AddMenu from "../pages/MenuMaster/AddMenu";
@@ -134,57 +122,141 @@ import AddEmployee from "../pages/MenuMaster/AddEmployee";
 import CMSmaster from "../pages/MenuMaster/CMSmaster";
 import SignContext from "../contextAPI/Context/SignContext";
 import EditDepGrp from "../pages/MenuMaster/EditDepGrp";
-
-
+import EditDepType from "../pages/MenuMaster/EditDepType";
 
 // import customerNew from "../pages/Ecommerce/EcommerceCustomers/customerNew";
 const authProtectedRoutes = [
   { path: "/dashboard", component: <NewDashboard /> },
   { path: "/menumaster", component: <MenuMater /> },
-  {path:"/add-menu", component:<AddMenu/>},
-  {path:"roles-responsibilty",component:<RolesResponsibility/>},
-  {path:"/admin-user" ,component:<AdminUser/>},
-  {path:"/add-user",component:<AddAdmin/>},
-  {path:"/community-update",component:<CommunityUpdateMaster/> },
+  { path: "/add-menu", component: <AddMenu /> },
+  { path: "roles-responsibilty", component: <RolesResponsibility /> },
+  { path: "/admin-user", component: <AdminUser /> },
+  { path: "/add-user", component: <AddAdmin /> },
+  { path: "/community-update", component: <CommunityUpdateMaster /> },
 
-  {path:"/department-type",component:<SignState><DepartmentType/></SignState>},
-  {path:"/add-dtype",component:<SignState><AddDepType/></SignState>},
-  
+  {
+    path: "/department-type",
+    component: (
+      <SignState>
+        <DepartmentType />
+      </SignState>
+    ),
+  },
+  {
+    path: "/add-dtype",
+    component: (
+      <SignState>
+        <AddDepType />
+      </SignState>
+    ),
+  },
+
   { path: "/apps-projects-list", component: <ProjectList /> },
   { path: "/apps-projects-overview", component: <ProjectOverview /> },
   { path: "/apps-projects-create", component: <CreateProject /> },
-  {path:"/department-group",component:<SignState><DepartmentGroup/></SignState>},
-  {path:"/add-dgroup" ,component:<SignState><AddDepGroup/></SignState>},
+  {
+    path: "/department-group",
+    component: (
+      <SignState>
+        <DepartmentGroup />
+      </SignState>
+    ),
+  },
+  {
+    path: "/add-dgroup",
+    component: (
+      <SignState>
+        <AddDepGroup />
+      </SignState>
+    ),
+  },
 
-  {path:"/manage-document",component:<ManageDocument/>},
-  {path:"/add-document",component:<AddDocument/>},
-  {path:"/document-access",component:<DocumentAccess/>},
-  {path:"/add-documentaceess",component:<AddDocumentAccess/>},
+  { path: "/manage-document", component: <ManageDocument /> },
+  { path: "/add-document", component: <AddDocument /> },
+  { path: "/document-access", component: <DocumentAccess /> },
+  { path: "/add-documentaceess", component: <AddDocumentAccess /> },
 
-  {path:"/add-taskmaster",component:<AddTaskMaster/>},
-  {path:"/add-task",component:<AddTask/>},
-  {path:"/assign-master",component:<AssignMaster/>},
-  {path:"/assign-task",component:<AssignTask/>},
-  {path:"/add-community",component:<AddCommunity/>},
-  {path:"/location-master",component:<LocationMaster/>}, 
-  {path:"/add-location",component:<SignState><AddLocation/></SignState>},
-  {path:"/employee-roles",component:<EmployeeRoles/>},
-  {path:"/add-employeerole",component:<SignState><AddEmployeeRoles/></SignState>},
-  {path:"/employee-master",component:<EmployeeMaster/>},
-  {path:"/add-employee",component:<AddEmployee/>},
-      
-  {path:"/cmsmaster",component:<CMSmaster/>},
-  {path:"/edit_dggroup/:id",component:<SignState><EditDepGrp/></SignState>},
+  { path: "/add-taskmaster", component: <AddTaskMaster /> },
+  { path: "/add-task", component: <AddTask /> },
+  { path: "/assign-master", component: <AssignMaster /> },
+  { path: "/assign-task", component: <AssignTask /> },
+  { path: "/add-community", component: <AddCommunity /> },
+  { path: "/location-master", component: <LocationMaster /> },
+  {
+    path: "/add-location",
+    component: (
+      <SignState>
+        <AddLocation />
+      </SignState>
+    ),
+  },
+  { path: "/employee-roles", component: <EmployeeRoles /> },
+  {
+    path: "/add-employeerole",
+    component: (
+      <SignState>
+        <AddEmployeeRoles />
+      </SignState>
+    ),
+  },
+  { path: "/employee-master", component: <EmployeeMaster /> },
+  { path: "/add-employee", component: <AddEmployee /> },
 
-
+  { path: "/cmsmaster", component: <CMSmaster /> },
+  {
+    path: "/edit_dggroup/:id",
+    component: (
+      <SignState>
+        <EditDepGrp />
+      </SignState>
+    ),
+  },
+  {
+    path: "/edit-deptype/:id",
+    component: (
+      <SignState>
+        <EditDepType />
+      </SignState>
+    ),
+  },
 
   //Pages
   { path: "/pages-starter", component: <Starter /> },
-  { path: "/pages-profile", component: <SignState> <SimplePage /> </SignState> },
-  { path: "/pages-profile-settings/:id", component: <SignState> <Settings /> </SignState> },
+  {
+    path: "/pages-profile",
+    component: (
+      <SignState>
+        {" "}
+        <SimplePage />{" "}
+      </SignState>
+    ),
+  },
+  {
+    path: "/pages-profile-settings/:id",
+    component: (
+      <SignState>
+        {" "}
+        <Settings />{" "}
+      </SignState>
+    ),
+  },
   // { path: "/pages-team", component: <SignState><Team /></SignState> },
-  { path: "/newteam", component: <SignState><NewTeam/></SignState> },
-  { path: "/adduser", component: <SignState><AddUser/></SignState> },
+  {
+    path: "/newteam",
+    component: (
+      <SignState>
+        <NewTeam />
+      </SignState>
+    ),
+  },
+  {
+    path: "/adduser",
+    component: (
+      <SignState>
+        <AddUser />
+      </SignState>
+    ),
+  },
   { path: "/pages-timeline", component: <Timeline /> },
   { path: "/pages-faqs", component: <Faqs /> },
   { path: "/pages-gallery", component: <Gallery /> },
@@ -193,16 +265,50 @@ const authProtectedRoutes = [
   { path: "/pages-search-results", component: <SearchResults /> },
 
   //User Profile
-  { path: "/profile/:id", component: <SignState><UserProfile /></SignState> },
-
+  {
+    path: "/profile/:id",
+    component: (
+      <SignState>
+        <UserProfile />
+      </SignState>
+    ),
+  },
 ];
 
 const publicRoutes = [
   // Authentication Page
-  { path: "/logout", component: <SignState><Logout /></SignState> },
-  { path: "/login", component: <SignState><Login /></SignState> },
-  { path: "/", component: <SignState><Login /></SignState> },
-  { path: "/forgot-password", component: <SignState><ForgetPasswordPage /></SignState> },
+  {
+    path: "/logout",
+    component: (
+      <SignState>
+        <Logout />
+      </SignState>
+    ),
+  },
+  {
+    path: "/login",
+    component: (
+      <SignState>
+        <Login />
+      </SignState>
+    ),
+  },
+  {
+    path: "/",
+    component: (
+      <SignState>
+        <Login />
+      </SignState>
+    ),
+  },
+  {
+    path: "/forgot-password",
+    component: (
+      <SignState>
+        <ForgetPasswordPage />
+      </SignState>
+    ),
+  },
   // { path: "/register", component: <Register /> },
 
   //AuthenticationInner pages
@@ -227,11 +333,9 @@ const publicRoutes = [
   { path: "/pages-maintenance", component: <Maintenance /> },
   { path: "/pages-coming-soon", component: <ComingSoon /> },
 
-
   { path: "/auth-pass-change-basic", component: <BasicPasswCreate /> },
   { path: "/auth-pass-change-cover", component: <CoverPasswCreate /> },
   { path: "/auth-offline", component: <Offlinepage /> },
-
 ];
 
 export { authProtectedRoutes, publicRoutes };
