@@ -4,6 +4,7 @@ import UiContent from "../../Components/Common/UiContent";
 import PreviewCardHeader from "../../Components/Common/PreviewCardHeader";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/brands/slack.png";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -25,6 +26,7 @@ import {
 import SignContext from "../../contextAPI/Context/SignContext";
 
 const DepartmentType = () => {
+  const navigate=useNavigate();
   const [deptype,setdeptype]=useState(null);
   const {GetallDepartmentType,deletetype} = useContext(SignContext);
   const getalldeptype = async () => {
@@ -43,6 +45,11 @@ const DepartmentType = () => {
     
     console.log(">>",id)
 
+  }
+
+  const handleEdit=async(id)=>{
+    console.log(">>>id",id)
+    navigate(`/edit-deptype/${id}`)
   }
 
   useEffect(() => {
@@ -111,7 +118,7 @@ const DepartmentType = () => {
                                         <button
                                           type="button"
                                           className="btn btn-danger btn-icon waves-effect waves-light"
-                                          
+                                          onClick={()=>handleEdit(type._id)}
                                         >
                                           <i className="ri-pencil-fill"></i>
                                         </button>
