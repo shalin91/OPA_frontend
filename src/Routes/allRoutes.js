@@ -181,7 +181,7 @@ const authProtectedRoutes = [
   { path: "/assign-master", component: <AssignMaster /> },
   { path: "/assign-task", component: <AssignTask /> },
   { path: "/add-community", component: <AddCommunity /> },
-  { path: "/location-master", component: <LocationMaster /> },
+  { path: "/location-master", component: <SignState><LocationMaster /></SignState> },
   {
     path: "/add-location",
     component: (
@@ -190,7 +190,7 @@ const authProtectedRoutes = [
       </SignState>
     ),
   },
-  { path: "/employee-roles", component: <EmployeeRoles /> },
+  { path: "/employee-roles", component:<SignState> <EmployeeRoles /> </SignState>},
   {
     path: "/add-employeerole",
     component: (

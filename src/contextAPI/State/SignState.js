@@ -333,6 +333,30 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
+  const GetallEmployeeRole = async () => {
+    try {
+      const response = await axios.get(
+        `${url}/employeerole/getemployeeroles`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+
+  const GetallLocation= async () => {
+    try {
+      const response = await axios.get(
+        `${url}/location/getlocations`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+
   return (
     <SignContext.Provider
       value={{
@@ -360,7 +384,9 @@ export const SignState = (props) => {
         EditDepGrp,
         setEditDepGrpValues,
         GetDepTypeByIdForEditing,
-        setEditDepTypeValues
+        setEditDepTypeValues,
+        GetallEmployeeRole,
+        GetallLocation
       }}
     >
       {props.children}
