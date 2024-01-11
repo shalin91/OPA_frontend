@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState,useEffect,useContext } from "react";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import UiContent from "../../Components/Common/UiContent";
 import PreviewCardHeader from "../../Components/Common/PreviewCardHeader";
@@ -22,7 +22,24 @@ import {
   ModalHeader,
   Row,
 } from "reactstrap";
+import SignContext from "../../contextAPI/Context/SignContext";
 const EmployeeRoles = () => {
+  const { GetallEmployeeRole } = useContext(SignContext);
+  const [employeerole,setemployeerole]=useState(null);
+
+ 
+  const getemployerole=async()=>{
+     const res=await GetallEmployeeRole(); 
+     console.log(res); 
+     setemployeerole(res.data);    
+  }
+  const handleDelete=(id)=>{
+        console.log(">>id",id)
+  }
+  
+  useEffect(()=>{
+       getemployerole()
+  },[])
   return (
     <>
       <UiContent />
@@ -47,71 +64,73 @@ const EmployeeRoles = () => {
                     </Link>
                   </div>
                 </div>
-                {/* <CardBody>
+                <CardBody>
                   <div className="live-preview">
                     <div className="table-responsive">
                       <Table className="align-middle table-nowrap mb-0">
                         <thead className="table-light">
                           <tr>
-                            
                             <th scope="col">ID</th>
-                            <th scope="col">Photo</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Email|Password</th>
-                            <th scope="col">Group</th>
-                            <th scope="col">Type</th>
+
+                            <th scope="col">Department Group Name</th>
+                            <th scope="col">Department Type Name</th>
+                            <th scope="col">Employee Role</th>
                             <th scope="col">Status</th>
                             <th scope="col">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>#VZ2110</td>
-                            <td>
-                              <div className="d-flex gap-2 align-items-center">
-                                <div className="flex-shrink-0">
-                                  <img
-                                    src={logo}
-                                    alt="img"
-                                    className="avatar-xs rounded-circle"
-                                  />
-                                </div>
-                              </div>
-                            </td>
-                            <td>Vaishal</td>
-                            <td>vaishal123@gmail.com | 123444</td>
-                            <td>Core Function</td>
-                            <td>Coree</td>
-                            <td>
-                              <span className="badge bg-success">Active</span>
-                            </td>
-                            <td>
-                              <div className="d-flex gap-2 align-items-center">
-                                <div className="flex-shrink-0">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-icon waves-effect waves-light"
-                                  >
-                                    <i class="ri-pencil-fill"></i>
-                                  </button>
-                                </div>
-                                <div className="flex-grow-1">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-icon waves-effect waves-light"
-                                  >
-                                    <i class=" ri-delete-bin-5-line"></i>
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
+                          {employeerole &&
+                            employeerole.length > 0 &&
+                            employeerole.map((type, index) => {
+                              return (
+                                <tr key={type._id}>
+                                  <td>{index+1}</td>
+                                  <td>{type.departmentGroup.name}</td>
+                                  <td>{type.departmentType.name}</td>
+                                  <td>{type.EmployeeRole}</td>
+                                  
+                                  <td>
+                                    {type.isActive ? (
+                                      <span className="badge bg-success">
+                                        Active
+                                      </span>
+                                    ) : (
+                                      <span className="badge bg-danger">
+                                        InActive
+                                      </span>
+                                    )}
+                                  </td>
+                                  <td>
+                                    <div className="d-flex gap-2 align-items-center">
+                                      <div className="flex-shrink-0">
+                                        <button
+                                          type="button"
+                                          className="btn btn-danger btn-icon waves-effect waves-light"
+                                          // onClick={()=>handleEdit(type._id)}
+                                        >
+                                          <i className="ri-pencil-fill"></i>
+                                        </button>
+                                      </div>
+                                      <div className="flex-grow-1">
+                                        <button
+                                          type="button"
+                                          className="btn btn-success btn-icon waves-effect waves-light"
+                                          onClick={() => handleDelete(type._id)}
+                                        >
+                                          <i className="ri-delete-bin-5-line"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              );
+                            })}
                         </tbody>
                       </Table>
                     </div>
                   </div>
-                  
-                </CardBody> */}
+                </CardBody>
               </Card>
             </Col>
           </Row>

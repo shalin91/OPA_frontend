@@ -288,7 +288,18 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
-
+  
+  const GetDepTypeByIdForEditing = async (id) => {
+    try {
+      const response = await axios.get(
+        `${url}/departmenttype/getdepartmenttypebyid/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
   const EditDepGrp = async (id) => {
     try {
       const response = await axios.post(
@@ -311,6 +322,41 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
+  const setEditDepTypeValues = async (id,departmentGroup, name, isActive) => {
+    try {
+      const response = await axios.post(
+        `${url}/departmenttype/editdepartmenttype/${id}`,
+        {departmentGroup,name, isActive}
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
+  const GetallEmployeeRole = async () => {
+    try {
+      const response = await axios.get(
+        `${url}/employeerole/getemployeeroles`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+
+  const GetallLocation= async () => {
+    try {
+      const response = await axios.get(
+        `${url}/location/getlocations`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+
   return (
     <SignContext.Provider
       value={{
@@ -337,6 +383,10 @@ export const SignState = (props) => {
         deletetype,
         EditDepGrp,
         setEditDepGrpValues,
+        GetDepTypeByIdForEditing,
+        setEditDepTypeValues,
+        GetallEmployeeRole,
+        GetallLocation
       }}
     >
       {props.children}
