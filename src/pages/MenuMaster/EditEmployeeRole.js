@@ -14,28 +14,32 @@ import {
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
-const AddEmployee = () => {
-  const { GetallLocation, GetallDepartmentGroup } = useContext(SignContext);
-  const [loc, setloc] = useState(null);
-  const [grp, setgrp] = useState(" ");
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await GetallLocation();
-        setloc(res.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+const EditEmployeeRole = () => {
 
-    fetchData();
-  }, [GetallLocation]);
-
-  useEffect(() => {
+    const navigate=useNavigate();
+    const {GetEmployeeRoleByIdForEditing, setEditEmployeeRoleValues} = useContext(SignContext);
+    const { id } = useParams();
+    const[typeid1,settypeid1]=useState({
+        departmentGroup:" ",
+        departmentType:" ",
+        EmployeeRole:" ",
+        isActive:" ",
+      });
     
-    console.log("Updated loc:", loc);
-  }, [loc]); 
-
+    const gettingemprole=async (id)=>{
+      const res=await GetEmployeeRoleByIdForEditing(id);
+      console.log(res);
+      settypeid1(res.data)
+      
+    }
+    useEffect(() => {
+        
+      }, []);
+    useEffect(()=>{
+         gettingemprole(id);
+    },[])
   return (
     <>
       <UiContent />
@@ -51,16 +55,15 @@ const AddEmployee = () => {
               <Formik
                 // validationSchema={schema}
                 initialValues={
-                  {
-                    //   checkupName: "",
-                    //   checkupNumber: "",
-                    //   checkupDate: "",
-                    //   checkupType: "",
-                  }
+                    typeid1
                 }
                 onSubmit={(values, { resetForm }) => {
-                  //   addCheckupDetails(values);
-                  //   resetForm();
+                    const res=setEditEmployeeRoleValues(id,typeid1.departmentGroup._id,typeid1.departmentType._id,typeid1.EmployeeRole,typeid1.isActive)
+                    if(res){
+                        navigate('/employee-roles');
+                    }
+                    resetForm();
+
                 }}
               >
                 {({
@@ -73,9 +76,9 @@ const AddEmployee = () => {
                 }) => (
                   <div className="login">
                     <div className="form">
-                      {/* Passing handleSubmit parameter tohtml form onSubmit property */}
+                      
                       <form noValidate onSubmit={handleSubmit}>
-                        {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
+
 
                         <Card>
                           <CardHeader>
@@ -83,7 +86,7 @@ const AddEmployee = () => {
                               <Col className="col-sm">
                                 <div className="d-flex justify-content-sm-between">
                                   <h2 className="card-title mb-0 justify-content-sm-start">
-                                    <strong>Employee Details</strong>
+                                    <strong>Edit Employee Role</strong>
                                   </h2>
                                 </div>
                               </Col>
@@ -98,52 +101,18 @@ const AddEmployee = () => {
                                       className="form-label"
                                       htmlFor="product-orders-input"
                                     >
-                                      Location
-                                    </label>
-                                    <div className="">
-                                      <select
-                                        className="form-select"
-                                        name="checkupTpe"
-                                        onBlur={handleBlur}
-                                        value={values.checkupTpe}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="">--select--</option>
-                                        {loc && loc.length > 0 ? (
-                                          loc.map((type) => (
-                                            <option key={type} value={type._id}>
-                                              {type.name}
-                                            </option>
-                                          ))
-                                        ) : (
-                                          <option value="" disabled>
-                                            No locations available
-                                          </option>
-                                        )}
-                                      </select>
-                                    </div>
-                                  </div>
-                                </Col>
-                                <Col sm={4}>
-                                  <div className="mb-3">
-                                    <label
-                                      className="form-label"
-                                      htmlFor="product-orders-input"
-                                    >
                                       Department Group
                                     </label>
                                     <div className="">
                                       <select
                                         className="form-select"
-                                        name="checkupType"
+                                        name="departmentGroup"
                                         onBlur={handleBlur}
-                                        value={values.checkupType}
+                                        value={values.departmentGroup}
                                         onChange={handleChange}
                                       >
-                                        <option value="">--select--</option>
-                                        <option value="abc">abc</option>
-                                        <option value="def">def</option>
-                                        <option value="fgh">fgh</option>
+                                        <option>{typeid1.departmentGroup.name}</option>
+                                        
                                       </select>
                                     </div>
                                   </div>
@@ -159,15 +128,13 @@ const AddEmployee = () => {
                                     <div className="">
                                       <select
                                         className="form-select"
-                                        name="heckupType"
+                                        name="departmentGroup"
                                         onBlur={handleBlur}
-                                        value={values.heckupType}
+                                        value={values.departmentGroup}
                                         onChange={handleChange}
                                       >
-                                        <option value="">--select--</option>
-                                        <option value="abc">abc</option>
-                                        <option value="def">def</option>
-                                        <option value="fgh">fgh</option>
+                                        <option>{typeid1.departmentType.name}</option>
+                                        
                                       </select>
                                     </div>
                                   </div>
@@ -178,31 +145,7 @@ const AddEmployee = () => {
                                       className="form-label"
                                       htmlFor="product-orders-input"
                                     >
-                                      Employee Roles
-                                    </label>
-                                    <div className="">
-                                      <select
-                                        className="form-select"
-                                        name="checkuTpe"
-                                        onBlur={handleBlur}
-                                        value={values.checkuTpe}
-                                        onChange={handleChange}
-                                      >
-                                        <option value="">--select--</option>
-                                        <option value="abc">abc</option>
-                                        <option value="def">def</option>
-                                        <option value="fgh">fgh</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </Col>
-                                <Col sm={4}>
-                                  <div className="mb-3">
-                                    <label
-                                      className="form-label"
-                                      htmlFor="product-orders-input"
-                                    >
-                                      Employee Name
+                                      Employee Role
                                     </label>
                                     <div className="mb-3">
                                       <Input
@@ -210,31 +153,35 @@ const AddEmployee = () => {
                                         className="form-control"
                                         id="product-orders-input"
                                         placeholder="Enter Title"
-                                        name="EmployeeRole"
+                                        name="name"
                                         aria-label="orders"
                                         aria-describedby="product-orders-addon"
-                                        onChange={handleChange}
+                                        
+                                        onChange={(e) => settypeid1((prev) => ({ ...prev, EmployeeRole: e.target.value }))}
+
+
+
                                         onBlur={handleBlur}
-                                        value={values.EmployeeRole}
+                                        value={typeid1.EmployeeRole}
                                       />
-                                      {/* <p className="error text-danger">
+                                      <p className="error text-danger">
                                         {errors.gallaryCategoryTitle &&
                                           touched.gallaryCategoryTitle &&
                                           errors.gallaryCategoryTitle}
-                                      </p> */}
+                                      </p>
                                     </div>
                                   </div>
                                 </Col>
-                                <Col sm={4}></Col>
+                                
                                 <Col sm={2}>
                                   <div className="mt-3">
                                     <Input
                                       type="checkbox"
                                       id="isActive"
                                       label="Is Active"
-                                      name="active"
-                                      checked={values.active}
-                                      onChange={handleChange}
+                                      name="isActive"
+                                      checked={typeid1.isActive}
+                                      onChange={(e) => settypeid1({ ...typeid1, isActive: e.target.checked })}
                                     />
                                     <label className="me-2">Is Active</label>
                                   </div>
@@ -264,4 +211,4 @@ const AddEmployee = () => {
   );
 };
 
-export default AddEmployee;
+export default EditEmployeeRole;
