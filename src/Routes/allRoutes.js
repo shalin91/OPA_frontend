@@ -123,6 +123,7 @@ import CMSmaster from "../pages/MenuMaster/CMSmaster";
 import SignContext from "../contextAPI/Context/SignContext";
 import EditDepGrp from "../pages/MenuMaster/EditDepGrp";
 import EditDepType from "../pages/MenuMaster/EditDepType";
+import EditLocation from "../pages/MenuMaster/EditLocation";
 
 // import customerNew from "../pages/Ecommerce/EcommerceCustomers/customerNew";
 const authProtectedRoutes = [
@@ -219,6 +220,15 @@ const authProtectedRoutes = [
       </SignState>
     ),
   },
+  {
+    path: "/edit-location/:id",
+    component: (
+      <SignState>
+        <EditLocation/>
+      </SignState>
+    ),
+  },
+
 
   //Pages
   { path: "/pages-starter", component: <Starter /> },

@@ -5,6 +5,7 @@ import PreviewCardHeader from "../../Components/Common/PreviewCardHeader";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/brands/slack.png";
 import SignContext from "../../contextAPI/Context/SignContext";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Card,
@@ -24,13 +25,27 @@ import {
   Row,
 } from "reactstrap";
 const LocationMaster = () => {
-
-  const {GetallLocation}=useContext(SignContext);
+  const navigate=useNavigate();
+  const {GetallLocation,DeleteLocation}=useContext(SignContext);
   const[loc,setloc]=useState("")
   const getlocation=async()=>{
        const res=await GetallLocation();
        console.log(res);
        setloc(res.data);
+  }
+  const handleDelete=async(id)=>{
+    const abc=window.confirm("Are you sure you want to delete");
+    if(abc){
+    const res1=await DeleteLocation(id);
+    getlocation();
+    }
+
+    
+  }
+  const handleEdit=async(id)=>{
+      
+    navigate(`/edit-location/${id}`)
+    
   }
 
   useEffect(()=>{
@@ -101,7 +116,7 @@ const LocationMaster = () => {
                                         <button
                                           type="button"
                                           className="btn btn-danger btn-icon waves-effect waves-light"
-                                          // onClick={()=>handleEdit(type._id)}
+                                          onClick={()=>handleEdit(type._id)}
                                         >
                                           <i className="ri-pencil-fill"></i>
                                         </button>
@@ -110,7 +125,7 @@ const LocationMaster = () => {
                                         <button
                                           type="button"
                                           className="btn btn-success btn-icon waves-effect waves-light"
-                                          // onClick={() => handleDelete(type._id)}
+                                          onClick={() => handleDelete(type._id)}
                                         >
                                           <i className="ri-delete-bin-5-line"></i>
                                         </button>

@@ -288,7 +288,7 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
-  
+
   const GetDepTypeByIdForEditing = async (id) => {
     try {
       const response = await axios.get(
@@ -322,11 +322,23 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
-  const setEditDepTypeValues = async (id,departmentGroup, name, isActive) => {
+
+  const setEditLocationValues = async (id, name, isActive) => {
+    try {
+      const response = await axios.post(
+        `${url}/location/editlocation/${id}`,
+        { name, isActive }
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
+  const setEditDepTypeValues = async (id, departmentGroup, name, isActive) => {
     try {
       const response = await axios.post(
         `${url}/departmenttype/editdepartmenttype/${id}`,
-        {departmentGroup,name, isActive}
+        { departmentGroup, name, isActive }
       );
       return response;
     } catch (error) {
@@ -345,10 +357,18 @@ export const SignState = (props) => {
     }
   };
 
-  const GetallLocation= async () => {
+  const GetallLocation = async () => {
     try {
-      const response = await axios.get(
-        `${url}/location/getlocations`,
+      const response = await axios.get(`${url}/location/getlocations`, {});
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const DeleteLocation = async (id) => {
+    try {
+      const response = await axios.post(
+        `${url}/location/deletelocationbyid/${id}`,
         {}
       );
       return response;
@@ -356,7 +376,28 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
-
+  const DeleteEmployeeRole = async (id) => {
+    try {
+      const response = await axios.post(
+        `${url}/employeerole/deleteemployerole/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const GetLocationById=async(id)=>{
+    try {
+      const response = await axios.post(
+        `${url}/location/getlocationbyid/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  }
   return (
     <SignContext.Provider
       value={{
@@ -386,7 +427,11 @@ export const SignState = (props) => {
         GetDepTypeByIdForEditing,
         setEditDepTypeValues,
         GetallEmployeeRole,
-        GetallLocation
+        GetallLocation,
+        DeleteLocation,
+        GetLocationById,
+        setEditLocationValues,
+        DeleteEmployeeRole
       }}
     >
       {props.children}
