@@ -23,8 +23,10 @@ import {
   Row,
 } from "reactstrap";
 import SignContext from "../../contextAPI/Context/SignContext";
+import { useNavigate } from "react-router-dom";
 const EmployeeRoles = () => {
-  const { GetallEmployeeRole } = useContext(SignContext);
+  const navigate=useNavigate();      
+  const { GetallEmployeeRole, DeleteEmployeeRole} = useContext(SignContext);
   const [employeerole,setemployeerole]=useState(null);
 
  
@@ -33,8 +35,20 @@ const EmployeeRoles = () => {
      console.log(res); 
      setemployeerole(res.data);    
   }
-  const handleDelete=(id)=>{
-        console.log(">>id",id)
+  const handleDelete=async(id)=>{
+        console.log(">>id",id);
+      
+      const abc=window.confirm("Are you sure you want to delete");
+      if(abc){
+      const res= await DeleteEmployeeRole(id);
+      getemployerole()
+      console.log(res);
+      }
+  }
+  
+  const handleEdit=async(id)=>{
+         console.log(id);
+         navigate( `/edit-employeerole/${id}`)
   }
   
   useEffect(()=>{
@@ -107,7 +121,7 @@ const EmployeeRoles = () => {
                                         <button
                                           type="button"
                                           className="btn btn-danger btn-icon waves-effect waves-light"
-                                          // onClick={()=>handleEdit(type._id)}
+                                          onClick={()=>handleEdit(type._id)}
                                         >
                                           <i className="ri-pencil-fill"></i>
                                         </button>
