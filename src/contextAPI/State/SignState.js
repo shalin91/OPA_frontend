@@ -300,6 +300,17 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
+  const GetEmployeeRoleByIdForEditing = async (id) => {
+    try {
+      const response = await axios.get(
+        `${url}/employeerole/getemployeerolebyid/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
   const EditDepGrp = async (id) => {
     try {
       const response = await axios.post(
@@ -339,6 +350,17 @@ export const SignState = (props) => {
       const response = await axios.post(
         `${url}/departmenttype/editdepartmenttype/${id}`,
         { departmentGroup, name, isActive }
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
+  const setEditEmployeeRoleValues = async (id, departmentGroup, departmentType,EmployeeRole ,isActive) => {
+    try {
+      const response = await axios.post(
+        `${url}/employeerole/editemployeerole/${id}`,
+        { departmentGroup, departmentType,EmployeeRole ,isActive }
       );
       return response;
     } catch (error) {
@@ -431,7 +453,9 @@ export const SignState = (props) => {
         DeleteLocation,
         GetLocationById,
         setEditLocationValues,
-        DeleteEmployeeRole
+        DeleteEmployeeRole,
+        GetEmployeeRoleByIdForEditing,
+        setEditEmployeeRoleValues
       }}
     >
       {props.children}

@@ -124,6 +124,7 @@ import SignContext from "../contextAPI/Context/SignContext";
 import EditDepGrp from "../pages/MenuMaster/EditDepGrp";
 import EditDepType from "../pages/MenuMaster/EditDepType";
 import EditLocation from "../pages/MenuMaster/EditLocation";
+import EditEmployeeRole from "../pages/MenuMaster/EditEmployeeRole";
 
 // import customerNew from "../pages/Ecommerce/EcommerceCustomers/customerNew";
 const authProtectedRoutes = [
@@ -201,7 +202,7 @@ const authProtectedRoutes = [
     ),
   },
   { path: "/employee-master", component: <EmployeeMaster /> },
-  { path: "/add-employee", component: <AddEmployee /> },
+  { path: "/add-employee", component: <SignState><AddEmployee /></SignState> },
 
   { path: "/cmsmaster", component: <CMSmaster /> },
   {
@@ -229,6 +230,14 @@ const authProtectedRoutes = [
     ),
   },
 
+  {
+    path: "/edit-employeerole/:id",
+    component: (
+      <SignState>
+        <EditEmployeeRole/>
+      </SignState>
+    ),
+  },
 
   //Pages
   { path: "/pages-starter", component: <Starter /> },
