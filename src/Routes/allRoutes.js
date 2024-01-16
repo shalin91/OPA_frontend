@@ -201,7 +201,7 @@ const authProtectedRoutes = [
       </SignState>
     ),
   },
-  { path: "/employee-master", component: <EmployeeMaster /> },
+  { path: "/employee-master", component:<SignState><EmployeeMaster /></SignState>  },
   { path: "/add-employee", component: <SignState><AddEmployee /></SignState> },
 
   { path: "/cmsmaster", component: <CMSmaster /> },

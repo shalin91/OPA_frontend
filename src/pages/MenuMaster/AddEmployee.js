@@ -15,9 +15,54 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
 const AddEmployee = () => {
-  const { GetallLocation, GetallDepartmentGroup } = useContext(SignContext);
+  const { GetallLocation, GetallDepartmentGroup, GetDepTypeById,GetEmployeeRoleById,addEmployeeName } =
+    useContext(SignContext);
   const [loc, setloc] = useState(null);
-  const [grp, setgrp] = useState(" ");
+  const [grp, setgrp] = useState(null);
+  const [dtype, setdtype] = useState(null);
+  const [aa, setaa] = useState("");
+  const [employeerole,setemployeerole]=useState(null);
+  const getdeptype = async (id) => {
+    const res = await GetDepTypeById(id);
+    console.log(">>>>final", res);
+    setdtype(res.data);
+    
+    
+    console.log("hello>>>",res.data[0].departmentGroup._id)
+    setaa(res.data[0].departmentGroup._id);
+  };
+  const handleDepGrp = (e) => {
+    let depgrpid = e.target.value;
+    console.log(depgrpid);
+    
+    if(depgrpid){
+    getdeptype(depgrpid);
+    }
+    
+
+   
+  };
+  const getemployeerole = async (id,s) => {
+    console.log(s);
+    console.log(id);
+    const res = await GetEmployeeRoleById(s,id);
+    setemployeerole(res.data);
+  };
+  const handleDepType = (e) => {
+    let deptypeid = e.target.value;
+    // console.log("dpetype>>",deptypeid);
+    // console.log("vaishal",aa);
+
+    if(deptypeid)
+    {
+      getemployeerole(deptypeid,aa)
+    }
+    
+    
+
+   
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -31,11 +76,29 @@ const AddEmployee = () => {
     fetchData();
   }, [GetallLocation]);
 
-  useEffect(() => {
-    
-    console.log("Updated loc:", loc);
-  }, [loc]); 
+  const fetchData1 = async () => {
+    try {
+      const res = await GetallDepartmentGroup();
+      setgrp(res.data);
+      console.log(grp);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+  const addEmployeeName1 = async (values) => {
+    const response = await addEmployeeName(values);
 
+    console.log(response);
+  };
+  useEffect(() => {
+    fetchData1();
+  }, []);
+  useEffect(() => {
+    console.log(grp);
+  }, [grp]);
+  useEffect(() => {
+    console.log(loc);
+  }, [loc]);
   return (
     <>
       <UiContent />
@@ -52,15 +115,17 @@ const AddEmployee = () => {
                 // validationSchema={schema}
                 initialValues={
                   {
-                    //   checkupName: "",
-                    //   checkupNumber: "",
-                    //   checkupDate: "",
-                    //   checkupType: "",
+                    location:"",
+                      departmentGroup: "",
+                      departmentType: "",
+                      employeeRole: "",
+                      name: "",
+
                   }
                 }
                 onSubmit={(values, { resetForm }) => {
-                  //   addCheckupDetails(values);
-                  //   resetForm();
+                    addEmployeeName1(values);
+                    resetForm();
                 }}
               >
                 {({
@@ -103,9 +168,9 @@ const AddEmployee = () => {
                                     <div className="">
                                       <select
                                         className="form-select"
-                                        name="checkupTpe"
+                                        name="location"
                                         onBlur={handleBlur}
-                                        value={values.checkupTpe}
+                                        value={values.location}
                                         onChange={handleChange}
                                       >
                                         <option value="">--select--</option>
@@ -135,15 +200,26 @@ const AddEmployee = () => {
                                     <div className="">
                                       <select
                                         className="form-select"
-                                        name="checkupType"
+                                        name="departmentGroup"
                                         onBlur={handleBlur}
-                                        value={values.checkupType}
-                                        onChange={handleChange}
+                                        value={values.departmentGroup}
+                                        onChange={(e) => {
+                                          handleChange(e);
+                                          handleDepGrp(e);
+                                        }}
                                       >
                                         <option value="">--select--</option>
-                                        <option value="abc">abc</option>
-                                        <option value="def">def</option>
-                                        <option value="fgh">fgh</option>
+                                        {grp && grp.length > 0 ? (
+                                          grp.map((type) => (
+                                            <option key={type} value={type._id}>
+                                              {type.name}
+                                            </option>
+                                          ))
+                                        ) : (
+                                          <option value="" disabled>
+                                            No grp available
+                                          </option>
+                                        )}
                                       </select>
                                     </div>
                                   </div>
@@ -159,15 +235,26 @@ const AddEmployee = () => {
                                     <div className="">
                                       <select
                                         className="form-select"
-                                        name="heckupType"
+                                        name="departmentType"
                                         onBlur={handleBlur}
-                                        value={values.heckupType}
-                                        onChange={handleChange}
+                                        value={values.departmentType}
+                                        onChange={(e) => {
+                                          handleChange(e);
+                                          handleDepType(e);
+                                        }}
                                       >
                                         <option value="">--select--</option>
-                                        <option value="abc">abc</option>
-                                        <option value="def">def</option>
-                                        <option value="fgh">fgh</option>
+                                        {dtype && dtype.length > 0 ? (
+                                          dtype.map((type) => (
+                                            <option key={type} value={type._id}>
+                                              {type.name}
+                                            </option>
+                                          ))
+                                        ) : (
+                                          <option value="" disabled>
+                                            No type available
+                                          </option>
+                                        )}
                                       </select>
                                     </div>
                                   </div>
@@ -183,15 +270,23 @@ const AddEmployee = () => {
                                     <div className="">
                                       <select
                                         className="form-select"
-                                        name="checkuTpe"
+                                        name="employeeRole"
                                         onBlur={handleBlur}
-                                        value={values.checkuTpe}
+                                        value={values.employeeRole}
                                         onChange={handleChange}
                                       >
                                         <option value="">--select--</option>
-                                        <option value="abc">abc</option>
-                                        <option value="def">def</option>
-                                        <option value="fgh">fgh</option>
+                                        {employeerole && employeerole.length > 0 ? (
+                                          employeerole.map((type) => (
+                                            <option key={type} value={type._id}>
+                                              {type.EmployeeRole}
+                                            </option>
+                                          ))
+                                        ) : (
+                                          <option value="" disabled>
+                                            No role available
+                                          </option>
+                                        )}
                                       </select>
                                     </div>
                                   </div>
@@ -210,12 +305,12 @@ const AddEmployee = () => {
                                         className="form-control"
                                         id="product-orders-input"
                                         placeholder="Enter Title"
-                                        name="EmployeeRole"
+                                        name="name"
                                         aria-label="orders"
                                         aria-describedby="product-orders-addon"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        value={values.EmployeeRole}
+                                        value={values.name}
                                       />
                                       {/* <p className="error text-danger">
                                         {errors.gallaryCategoryTitle &&
