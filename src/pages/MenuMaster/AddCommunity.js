@@ -16,48 +16,60 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
 const SingleOptions = [
-    { value: "Choices 1", label: "Choices 1" },
-    { value: "Choices 2", label: "Choices 2" },
-    { value: "Choices 3", label: "Choices 3" },
-    { value: "Choices 4", label: "Choices 4" },
-  ];
+  { value: "Choices 1", label: "Choices 1" },
+  { value: "Choices 2", label: "Choices 2" },
+  { value: "Choices 3", label: "Choices 3" },
+  { value: "Choices 4", label: "Choices 4" },
+];
+
 const AddCommunity = () => {
-    const [selectedSingle, setSelectedSingle] = useState(null);
-    const [selectedGroup, setSelectedGroup] = useState(null);
-    const [selectedGroup2, setSelectedGroup2] = useState(null);
-    const [selectedNoSortingGroup, setSelectedNoSortingGroup] = useState(null);
-    const [selectedMulti, setselectedMulti] = useState(null);
-    const [selectedMulti2, setselectedMulti2] = useState(null);
-    const [selectedMulti3, setselectedMulti3] = useState(null);
-  
-    function handleSelectSingle(selectedSingle) {
-      setSelectedSingle(selectedSingle);
-    }
-  
-    function handleSelectGroups(selectedGroup) {
-      setSelectedGroup(selectedGroup);
-    }
-  
-    function handleSelectGroups2(selectedGroup2) {
-      setSelectedGroup2(selectedGroup2);
-    }
-  
-    function handleSelectNoSortingGroup(selectedNoSortingGroup) {
-      setSelectedNoSortingGroup(selectedNoSortingGroup);
-    }
-  
-    function handleMulti(selectedMulti) {
-      setselectedMulti(selectedMulti);
-    }
-  
-    function handleMulti2(selectedMulti2) {
-      setselectedMulti2(selectedMulti2);
-    }
-  
-    function handleMulti3(selectedMulti3) {
-      setselectedMulti3(selectedMulti3);
-    }
-    return (
+  const { GetallDepartmentGroup,GetallLocation } = useContext(SignContext);
+
+  const [selectedMulti, setselectedMulti] = useState(null);
+  const [selectedMulti1, setselectedMulti1] = useState(null);
+  const [selectedMulti2, setselectedMulti2] = useState(null);
+  const [dep, setdep] = useState(null);
+  const [loc,setloc]=useState(null);
+  const getdepgroup = async () => {
+    const response = await GetallDepartmentGroup();
+
+    const names = response.data.map((item) => ({
+      value: item._id,
+      label: item.name,
+      id: item._id,
+    }));
+    setdep(names);
+  };
+  const getloc = async () => {
+    const response = await GetallLocation();
+
+    const names = response.data.map((item) => ({
+      value: item._id,
+      label: item.name,
+      id: item._id,
+    }));
+    setloc(names);
+  };
+  function handleMulti(selectedMulti) {
+    setselectedMulti(selectedMulti);
+    console.log(selectedMulti);
+  }
+  function handleMulti1(selectedMulti1) {
+    setselectedMulti1(selectedMulti1);
+    console.log(selectedMulti1);
+  }
+  function handleMulti2(selectedMulti2) {
+    setselectedMulti2(selectedMulti2);
+    console.log(selectedMulti2);
+  }
+  useEffect(() => {
+    getdepgroup();
+    getloc()
+  }, []);
+  useEffect(() => {
+    console.log(dep);
+  }, [dep]);
+  return (
     <>
       <UiContent />
       <div className="page-content">
@@ -73,15 +85,17 @@ const AddCommunity = () => {
                 // validationSchema={schema}
                 initialValues={
                   {
-                    //   checkupName: "",
-                    //   checkupNumber: "",
-                    //   checkupDate: "",
-                    //   checkupType: "",
+                    // location:"",
+                    // departmentGroup: "",
+                    // departmentType: "",
+                    // employeeRole: "",
+                    // EmployeeAccess: "",
                   }
                 }
                 onSubmit={(values, { resetForm }) => {
                   //   addCheckupDetails(values);
-                  //   resetForm();
+                  // addCommunityName1(values);
+                  // resetForm();
                 }}
               >
                 {({
@@ -94,10 +108,7 @@ const AddCommunity = () => {
                 }) => (
                   <div className="login">
                     <div className="form">
-                      {/* Passing handleSubmit parameter tohtml form onSubmit property */}
                       <form noValidate onSubmit={handleSubmit}>
-                        {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
-
                         <Card>
                           <CardHeader>
                             <Row className="g-1 m-1">
@@ -123,7 +134,6 @@ const AddCommunity = () => {
                                   <div className="">
                                     <Input
                                       type="text"
-                                      
                                       className="form-control"
                                       id="product-orders-input"
                                       name="checkupNumber"
@@ -150,11 +160,11 @@ const AddCommunity = () => {
                                     Upload Image
                                   </label>
                                   <div className="">
-                                  <Input
-                              className="form-control"
-                              type="file"
-                              id="formFile"
-                            />
+                                    <Input
+                                      className="form-control"
+                                      type="file"
+                                      id="formFile"
+                                    />
                                   </div>
 
                                   <p className="error text-danger">
@@ -179,14 +189,9 @@ const AddCommunity = () => {
                                     ></textarea>
                                   </div>
                                 </Col>
-                                
-
                               </Row>
                             </div>
                           </div>
-
-                          
-                          
                         </Card>
                       </form>
                     </div>
@@ -195,9 +200,9 @@ const AddCommunity = () => {
               </Formik>
             </Col>
           </Row>
- 
+
           {/* //second row */}
-           <Row>
+          <Row>
             <Col lg={12}>
               <Formik
                 // validationSchema={schema}
@@ -211,7 +216,7 @@ const AddCommunity = () => {
                 }
                 onSubmit={(values, { resetForm }) => {
                   //   addCheckupDetails(values);
-                  //   resetForm();
+                  resetForm();
                 }}
               >
                 {({
@@ -234,7 +239,9 @@ const AddCommunity = () => {
                               <Col className="col-sm">
                                 <div className="d-flex justify-content-sm-between">
                                   <h2 className="card-title mb-0 justify-content-sm-start">
-                                    <strong>Assign Community Updates Message</strong>
+                                    <strong>
+                                      Assign Community Updates Message
+                                    </strong>
                                   </h2>
                                 </div>
                               </Col>
@@ -243,8 +250,7 @@ const AddCommunity = () => {
                           <div className="card-body">
                             <div className="live-preview">
                               <Row className="align-items-center g-3">
-                              
-                              <Col lg={4}>
+                                {/* <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
                                       htmlFor="choices-multiple-default"
@@ -253,15 +259,15 @@ const AddCommunity = () => {
                                       Location
                                     </Label>
                                     <Select
-                                      value={selectedMulti}
+                                      value={selectedMulti2}
                                       isMulti={true}
                                       onChange={() => {
-                                        handleMulti();
+                                        handleMulti2();
                                       }}
-                                      options={SingleOptions}
+                                      options={loc}
                                     />
                                   </div>
-                                </Col>
+                                </Col> */}
                                 <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
@@ -273,10 +279,10 @@ const AddCommunity = () => {
                                     <Select
                                       value={selectedMulti}
                                       isMulti={true}
-                                      onChange={() => {
-                                        handleMulti();
+                                      onChange={(selectedOptions) => {
+                                        handleMulti(selectedOptions);
                                       }}
-                                      options={SingleOptions}
+                                      options={dep}
                                     />
                                   </div>
                                 </Col>
@@ -289,16 +295,16 @@ const AddCommunity = () => {
                                       Department Type
                                     </Label>
                                     <Select
-                                      value={selectedMulti}
+                                      value={selectedMulti1}
                                       isMulti={true}
-                                      onChange={() => {
-                                        handleMulti();
+                                      onChange={(selectedOptions) => {
+                                        handleMulti1(selectedOptions);
                                       }}
                                       options={SingleOptions}
                                     />
                                   </div>
                                 </Col>
-                                <Col lg={4}>
+                                {/* <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
                                       htmlFor="choices-multiple-default"
@@ -315,8 +321,8 @@ const AddCommunity = () => {
                                       options={SingleOptions}
                                     />
                                   </div>
-                                </Col>
-                                <Col lg={4}>
+                                </Col> */}
+                                {/* <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
                                       htmlFor="choices-multiple-default"
@@ -333,37 +339,33 @@ const AddCommunity = () => {
                                       options={SingleOptions}
                                     />
                                   </div>
-                                </Col>
-                                <Col sm={4}>
-
-                                </Col>
+                                </Col> */}
+                                <Col sm={4}></Col>
                                 <Col sm={2}>
-                              <div className="mt-3">
-                                <Input
-                                  type="checkbox"
-                                  id="isActive"
-                                  label="Is Active"
-                                  name="active"
-                                  checked={values.active}
-                                  onChange={handleChange}
-                                />
-                                <label className="me-2">Is Active</label>
-                              </div>
-                               </Col>
-
+                                  <div className="mt-3">
+                                    <Input
+                                      type="checkbox"
+                                      id="isActive"
+                                      label="Is Active"
+                                      name="active"
+                                      checked={values.active}
+                                      onChange={handleChange}
+                                    />
+                                    <label className="me-2">Is Active</label>
+                                  </div>
+                                </Col>
                               </Row>
                             </div>
                           </div>
 
-                        <div className="text-end mb-3 me-3">
+                          <div className="text-end mb-3 me-3">
                             <button
                               className="btn btn-success w-sm"
                               type="submit"
                             >
                               Submit
                             </button>
-                          </div>  
-                          
+                          </div>
                         </Card>
                       </form>
                     </div>
@@ -372,7 +374,6 @@ const AddCommunity = () => {
               </Formik>
             </Col>
           </Row>
-          
         </Container>
       </div>
     </>
@@ -380,4 +381,3 @@ const AddCommunity = () => {
 };
 
 export default AddCommunity;
-
