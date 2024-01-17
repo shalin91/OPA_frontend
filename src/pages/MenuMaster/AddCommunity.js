@@ -23,13 +23,15 @@ const SingleOptions = [
 ];
 
 const AddCommunity = () => {
-  const { GetallDepartmentGroup,GetallLocation } = useContext(SignContext);
-
+  const { GetallDepartmentGroup,GetallLocation,GetallDepartmentType } = useContext(SignContext);
+ 
   const [selectedMulti, setselectedMulti] = useState(null);
   const [selectedMulti1, setselectedMulti1] = useState(null);
   const [selectedMulti2, setselectedMulti2] = useState(null);
   const [dep, setdep] = useState(null);
   const [loc,setloc]=useState(null);
+  const [dtype,setdtype]=useState(null);
+  const uniqueValuesSet = new Set();
   const getdepgroup = async () => {
     const response = await GetallDepartmentGroup();
 
@@ -39,6 +41,16 @@ const AddCommunity = () => {
       id: item._id,
     }));
     setdep(names);
+  };
+  const getdeptype = async () => {
+    const response = await GetallDepartmentType();
+    //  console.log("res>>",response);
+    const names = response.data.map((item) => ({
+      value: item._id,
+      label: item.name,
+      id: item.departmentGroup._id,
+    }));
+    setdtype(names);
   };
   const getloc = async () => {
     const response = await GetallLocation();
@@ -52,7 +64,32 @@ const AddCommunity = () => {
   };
   function handleMulti(selectedMulti) {
     setselectedMulti(selectedMulti);
-    console.log(selectedMulti);
+    // console.log(selectedMulti);
+    // console.log("hello",dtype.length);
+    for (let i = 0; i < selectedMulti.length; i++) {
+      
+      if (dtype && dtype.length > 0) {
+        for (let j = 0; j < dtype.length; j++) {
+          
+          if (dtype[j] && dtype[j].id === selectedMulti[i].id) {
+            console.log("hello", dtype[j].label,dtype[j].id);
+            const obj = {
+              name: dtype[j].label,
+              id: dtype[j].id
+            };
+            const objString = JSON.stringify(obj);
+            if (!uniqueValuesSet.has(objString)) {
+              uniqueValuesSet.add(objString);
+            }
+          }
+
+
+        }
+
+        console.log(uniqueValuesSet);
+      }
+    }
+    
   }
   function handleMulti1(selectedMulti1) {
     setselectedMulti1(selectedMulti1);
@@ -64,11 +101,15 @@ const AddCommunity = () => {
   }
   useEffect(() => {
     getdepgroup();
-    getloc()
+    getloc();
+    getdeptype();
   }, []);
   useEffect(() => {
     console.log(dep);
   }, [dep]);
+  useEffect(() => {
+    console.log("departmenttype>>",dtype);
+  }, [dtype]);
   return (
     <>
       <UiContent />
@@ -250,7 +291,7 @@ const AddCommunity = () => {
                           <div className="card-body">
                             <div className="live-preview">
                               <Row className="align-items-center g-3">
-                                {/* <Col lg={4}>
+                                <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
                                       htmlFor="choices-multiple-default"
@@ -267,7 +308,7 @@ const AddCommunity = () => {
                                       options={loc}
                                     />
                                   </div>
-                                </Col> */}
+                                </Col>
                                 <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
@@ -340,7 +381,7 @@ const AddCommunity = () => {
                                     />
                                   </div>
                                 </Col> */}
-                                <Col sm={4}></Col>
+                                {/* <Col sm={4}></Col> */}
                                 <Col sm={2}>
                                   <div className="mt-3">
                                     <Input
