@@ -187,6 +187,8 @@ export const SignState = (props) => {
 
   //opa integration begins.........
 
+
+
   const addDepGroup = async (depGrpData) => {
     try {
       const response = await axios.post(
@@ -441,6 +443,17 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
+  const DeleteEmployeeName = async (id) => {
+    try {
+      const response = await axios.post(
+        `${url}/employeename/deleteemployeename/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
   const GetLocationById=async(id)=>{
     try {
       const response = await axios.post(
@@ -490,7 +503,8 @@ export const SignState = (props) => {
         setEditEmployeeRoleValues,
         GetEmployeeRoleById,
         addEmployeeName,
-        GetallEmployeeName
+        GetallEmployeeName,
+        DeleteEmployeeName
       }}
     >
       {props.children}
