@@ -187,6 +187,8 @@ export const SignState = (props) => {
 
   //opa integration begins.........
 
+
+
   const addDepGroup = async (depGrpData) => {
     try {
       const response = await axios.post(
@@ -253,7 +255,17 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
-
+  const addEmployeeName = async (depGrpData) => {
+    try {
+      const response = await axios.post(
+        `${url}/employeename/adddemployeename`,
+        depGrpData
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
   const GetallDepartmentGroup = async () => {
     try {
       const response = await axios.get(
@@ -288,6 +300,19 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
+  
+  const GetEmployeeRoleById = async (id,id1) => {
+    try {
+      const response = await axios.get(
+        `${url}/employeerole/getemployeerolebygroupandtype/${id}/${id1}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
+
 
   const GetDepTypeByIdForEditing = async (id) => {
     try {
@@ -387,6 +412,15 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
+
+  const GetallEmployeeName = async () => {
+    try {
+      const response = await axios.get(`${url}/employeename/getemployeenames`, {});
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
   const DeleteLocation = async (id) => {
     try {
       const response = await axios.post(
@@ -402,6 +436,17 @@ export const SignState = (props) => {
     try {
       const response = await axios.post(
         `${url}/employeerole/deleteemployerole/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const DeleteEmployeeName = async (id) => {
+    try {
+      const response = await axios.post(
+        `${url}/employeename/deleteemployeename/${id}`,
         {}
       );
       return response;
@@ -455,7 +500,11 @@ export const SignState = (props) => {
         setEditLocationValues,
         DeleteEmployeeRole,
         GetEmployeeRoleByIdForEditing,
-        setEditEmployeeRoleValues
+        setEditEmployeeRoleValues,
+        GetEmployeeRoleById,
+        addEmployeeName,
+        GetallEmployeeName,
+        DeleteEmployeeName
       }}
     >
       {props.children}
