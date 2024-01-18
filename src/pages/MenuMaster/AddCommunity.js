@@ -28,9 +28,14 @@ const AddCommunity = () => {
   const [selectedMulti, setselectedMulti] = useState(null);
   const [selectedMulti1, setselectedMulti1] = useState(null);
   const [selectedMulti2, setselectedMulti2] = useState(null);
+  const [selectedMulti3, setselectedMulti3] = useState(null);
+  const [selectedMulti4, setselectedMulti4] = useState(null);
   const [dep, setdep] = useState(null);
   const [loc,setloc]=useState(null);
   const [dtype,setdtype]=useState(null);
+  const [departmentype,setdepartmenttype]=useState([]);
+  const [uniqueDepartmentTypes, setUniqueDepartmentTypes] = useState({});
+
   const uniqueValuesSet = new Set();
   const getdepgroup = async () => {
     const response = await GetallDepartmentGroup();
@@ -63,34 +68,56 @@ const AddCommunity = () => {
     setloc(names);
   };
   function handleMulti(selectedMulti) {
+    
     setselectedMulti(selectedMulti);
-    // console.log(selectedMulti);
-    // console.log("hello",dtype.length);
+    let uniqueValuesSet = new Set();
+    
+    let uniqueDepartmentTypes=[];
+    
     for (let i = 0; i < selectedMulti.length; i++) {
       
-      if (dtype && dtype.length > 0) {
+      const selectId=selectedMulti[i].id;
+      
         for (let j = 0; j < dtype.length; j++) {
-          
-          if (dtype[j] && dtype[j].id === selectedMulti[i].id) {
-            console.log("hello", dtype[j].label,dtype[j].id);
-            const obj = {
-              name: dtype[j].label,
-              id: dtype[j].id
-            };
-            const objString = JSON.stringify(obj);
-            if (!uniqueValuesSet.has(objString)) {
-              uniqueValuesSet.add(objString);
+          const departtype=dtype[j];
+          if ((departtype && departtype.id === selectId)) {
+            
+            let combinedkey=`${departtype.label}`;
+            
+            
+            if (!uniqueValuesSet.has(departtype.label)) {
+              combinedkey="";
+              // uniqueIdsSet.add(departtype.id);
+              uniqueDepartmentTypes.push({
+                value: departtype.id,
+                label: departtype.label,
+                // id: departmentType.id,
+              });
+              
+              setdepartmenttype(uniqueDepartmentTypes);
+              // uniqueValuesSet.push(departtype.id,departtype.label)
             }
           }
+          
 
-
+         
         }
-
-        console.log(uniqueValuesSet);
-      }
+        
+         console.log(uniqueValuesSet);
+         console.log("vaishal>>>",departmentype)
+      
     }
+    setdepartmenttype(uniqueDepartmentTypes);
     
   }
+   
+
+
+  
+
+
+
+
   function handleMulti1(selectedMulti1) {
     setselectedMulti1(selectedMulti1);
     console.log(selectedMulti1);
@@ -98,6 +125,14 @@ const AddCommunity = () => {
   function handleMulti2(selectedMulti2) {
     setselectedMulti2(selectedMulti2);
     console.log(selectedMulti2);
+  }
+   function handleMulti3(selectedMulti3) {
+    setselectedMulti3(selectedMulti3);
+    console.log(selectedMulti3);
+  } 
+  function handleMulti4(selectedMulti4) {
+    setselectedMulti4(selectedMulti4);
+    console.log(selectedMulti4);
   }
   useEffect(() => {
     getdepgroup();
@@ -341,11 +376,11 @@ const AddCommunity = () => {
                                       onChange={(selectedOptions) => {
                                         handleMulti1(selectedOptions);
                                       }}
-                                      options={SingleOptions}
+                                      options={departmentype}
                                     />
                                   </div>
                                 </Col>
-                                {/* <Col lg={4}>
+                                <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
                                       htmlFor="choices-multiple-default"
@@ -354,16 +389,16 @@ const AddCommunity = () => {
                                       Employess Roles
                                     </Label>
                                     <Select
-                                      value={selectedMulti}
+                                      value={selectedMulti3}
                                       isMulti={true}
-                                      onChange={() => {
-                                        handleMulti();
+                                      onChange={(selectedOptions) => {
+                                        handleMulti3(selectedOptions);
                                       }}
                                       options={SingleOptions}
                                     />
                                   </div>
-                                </Col> */}
-                                {/* <Col lg={4}>
+                                </Col>
+                                <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
                                       htmlFor="choices-multiple-default"
@@ -372,15 +407,15 @@ const AddCommunity = () => {
                                       Employees Access
                                     </Label>
                                     <Select
-                                      value={selectedMulti}
+                                      value={selectedMulti4}
                                       isMulti={true}
-                                      onChange={() => {
-                                        handleMulti();
+                                      onChange={(selectedOptions) => {
+                                        handleMulti4(selectedOptions);
                                       }}
                                       options={SingleOptions}
                                     />
                                   </div>
-                                </Col> */}
+                                </Col>
                                 {/* <Col sm={4}></Col> */}
                                 <Col sm={2}>
                                   <div className="mt-3">
