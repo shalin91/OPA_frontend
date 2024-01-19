@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState,useContext,useEffect}from "react";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import UiContent from "../../Components/Common/UiContent";
 import PreviewCardHeader from "../../Components/Common/PreviewCardHeader";
@@ -22,7 +22,27 @@ import {
   ModalHeader,
   Row,
 } from "reactstrap";
+import SignContext from "../../contextAPI/Context/SignContext";
 const AddTaskMaster = () => {
+  const { GetallAddTask,DeleteAddTask } = useContext(SignContext);
+  const [task, setTask] = useState(null);
+  const gettask = async () => {
+    const response = await GetallAddTask();
+    console.log(">>>");
+    console.log(response.data);
+    setTask(response.data);
+  };
+  const handleDelete=async (abc)=>{
+    const abc1= window.confirm("Are you sure you want to delete?");
+    if(abc1){  
+    const res=await DeleteAddTask(abc);
+    gettask();
+    }
+
+ }
+  useEffect(() => {
+    gettask();
+  }, []);
   return (
     <>
       <UiContent />
@@ -53,66 +73,67 @@ const AddTaskMaster = () => {
                       <Table className="align-middle table-nowrap mb-0">
                         <thead className="table-light">
                           <tr>
-                            {/* <th scope="col" style={{ "width": "42px" }}>
-                                                            <div className="form-check">
-                                                                <Input className="form-check-input" type="checkbox" defaultValue="" id="responsivetableCheck" />
-                                                                <Label className="form-check-label" for="responsivetableCheck"></Label>
-                                                            </div>
-                                                        </th> */}
                             <th scope="col">ID</th>
-                            <th scope="col">Department Type Name</th>
-                            <th scope="col">Task Name</th>
-                            <th scope="col">Task Type</th>
+
+                            <th scope="col">Department Types Name</th>
+                            <th scope="col">Task Name </th>
+                            <th scope="col">Task Types </th>
                             <th scope="col">Access Location</th>
-                           
                             <th scope="col">Status</th>
                             <th scope="col">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>#VZ2110</td>
-                            <td>Human Resources</td>
-                           
-                            <td>Recruitment Form</td>
-                            <td>Form</td>
-                            <td>No</td>
-                            
-                            <td>
-                              <span className="badge bg-success">Active</span>
-                            </td>
-                            <td>
-                              <div className="d-flex gap-2 align-items-center">
-                                <div className="flex-shrink-0">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-icon waves-effect waves-light"
-                                  >
-                                    <i class="ri-pencil-fill"></i>
-                                  </button>
-                                </div>
-                                <div className="flex-grow-1">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-icon waves-effect waves-light"
-                                  >
-                                    <i class=" ri-delete-bin-5-line"></i>
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
+                          {task &&
+                            task.length > 0 &&
+                            task.map((type, index) => {
+                              return (
+                                <tr key={type._id}>
+                                  <td>{index+1}</td>
+                                  <td>{type.departmentType.name}</td>
+                                  <td>{type.taskName}</td>
+                                  <td>{type.taskType}</td>
+                                  <td>{type.accessLocation}</td>
+                                  <td>
+                                    {type.isActive ? (
+                                      <span className="badge bg-success">
+                                        Active
+                                      </span>
+                                    ) : (
+                                      <span className="badge bg-danger">
+                                        InActive
+                                      </span>
+                                    )}
+                                  </td>
+                                  <td>
+                                    <div className="d-flex gap-2 align-items-center">
+                                      <div className="flex-shrink-0">
+                                        <button
+                                          type="button"
+                                          className="btn btn-danger btn-icon waves-effect waves-light"
+                                          // onClick={() => handleEdit(type._id)}
+                                        >
+                                          <i className="ri-pencil-fill"></i>
+                                        </button>
+                                      </div>
+                                      <div className="flex-grow-1">
+                                        <button
+                                          type="button"
+                                          className="btn btn-success btn-icon waves-effect waves-light"
+                                          onClick={() => handleDelete(type._id)}
+                                        >
+                                          <i className="ri-delete-bin-5-line"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              );
+                            })}
                         </tbody>
                       </Table>
                     </div>
                   </div>
-                  {/* <div className="d-none code-view">
-                                        <pre className="language-markup" style={{ "height": "275px" }}>
-                                            <code>
-                                                <ResponsiveTables />
-                                            </code>
-                                        </pre>
-                                    </div> */}
                 </CardBody>
               </Card>
             </Col>

@@ -23,18 +23,19 @@ const SingleOptions = [
 ];
 
 const AddCommunity = () => {
-  const { GetallDepartmentGroup,GetallLocation,GetallDepartmentType } = useContext(SignContext);
- 
+  const { GetallDepartmentGroup, GetallLocation, GetallDepartmentType } =
+    useContext(SignContext);
+
   const [selectedMulti, setselectedMulti] = useState(null);
   const [selectedMulti1, setselectedMulti1] = useState(null);
   const [selectedMulti2, setselectedMulti2] = useState(null);
   const [selectedMulti3, setselectedMulti3] = useState(null);
   const [selectedMulti4, setselectedMulti4] = useState(null);
   const [dep, setdep] = useState(null);
-  const [loc,setloc]=useState(null);
-  const [dtype,setdtype]=useState(null);
-  const [departmentype,setdepartmenttype]=useState([]);
-  const [uniqueDepartmentTypes, setUniqueDepartmentTypes] = useState({});
+  const [loc, setloc] = useState(null);
+  const [dtype, setdtype] = useState(null);
+  const [departmentype, setdepartmenttype] = useState([]);
+  const [uniqueDepartmentTypes, setUniqueDepartmentTypes] = useState([]);
 
   const uniqueValuesSet = new Set();
   const getdepgroup = async () => {
@@ -67,69 +68,72 @@ const AddCommunity = () => {
     }));
     setloc(names);
   };
+  // function handleMulti(selectedMulti) {
+
+  //   setselectedMulti(selectedMulti);
+  //   let uniqueValuesSet = new Set();
+
+  //   let uniqueDepartmentTypes=[];
+
+  //   for (let i = 0; i < selectedMulti.length; i++) {
+
+  //     const selectId=selectedMulti[i].id;
+
+  //       for (let j = 0; j < dtype.length; j++) {
+  //         const departtype=dtype[j];
+  //         if ((departtype && departtype.id === selectId)) {
+  //             uniqueDepartmentTypes.push(departmentype.label);
+
+  //         }
+
+  //       }
+
+  //       uniqueDepartmentTypes=[];
+
+  //   }
+
+  // }
+
   function handleMulti(selectedMulti) {
-    
+    console.log("hello");
     setselectedMulti(selectedMulti);
-    let uniqueValuesSet = new Set();
     
-    let uniqueDepartmentTypes=[];
-    
+    let selectedValues = [];
     for (let i = 0; i < selectedMulti.length; i++) {
-      
-      const selectId=selectedMulti[i].id;
-      
-        for (let j = 0; j < dtype.length; j++) {
-          const departtype=dtype[j];
-          if ((departtype && departtype.id === selectId)) {
-            
-            let combinedkey=`${departtype.label}`;
-            
-            
-            if (!uniqueValuesSet.has(departtype.label)) {
-              combinedkey="";
-              // uniqueIdsSet.add(departtype.id);
-              uniqueDepartmentTypes.push({
-                value: departtype.id,
-                label: departtype.label,
-                // id: departmentType.id,
-              });
-              
-              setdepartmenttype(uniqueDepartmentTypes);
-              // uniqueValuesSet.push(departtype.id,departtype.label)
-            }
-          }
-          
+      const selectId = selectedMulti[i].id;
 
-         
+      for (let j = 0; j < dtype.length; j++) {
+        const departtype = dtype[j];
+
+        if (departtype && departtype.id === selectId) {
+          selectedValues.push({
+            label: departtype.label,
+            id: departtype.id,
+            value: departtype.label,
+           
+          });
         }
-        
-         console.log(uniqueValuesSet);
-         console.log("vaishal>>>",departmentype)
-      
+      }
     }
-    setdepartmenttype(uniqueDepartmentTypes);
-    
+    setUniqueDepartmentTypes(selectedValues);
+    console.log(uniqueDepartmentTypes);
   }
-   
-
-
-  
-
-
-
 
   function handleMulti1(selectedMulti1) {
     setselectedMulti1(selectedMulti1);
-    console.log(selectedMulti1);
+    
+    
+
+    console.log("selectedtype",selectedMulti1);
   }
   function handleMulti2(selectedMulti2) {
     setselectedMulti2(selectedMulti2);
     console.log(selectedMulti2);
   }
-   function handleMulti3(selectedMulti3) {
+  function handleMulti3(selectedMulti3) {
     setselectedMulti3(selectedMulti3);
     console.log(selectedMulti3);
-  } 
+  }
   function handleMulti4(selectedMulti4) {
     setselectedMulti4(selectedMulti4);
     console.log(selectedMulti4);
@@ -143,7 +147,7 @@ const AddCommunity = () => {
     console.log(dep);
   }, [dep]);
   useEffect(() => {
-    console.log("departmenttype>>",dtype);
+    console.log("departmenttype>>", dtype);
   }, [dtype]);
   return (
     <>
@@ -376,10 +380,11 @@ const AddCommunity = () => {
                                       onChange={(selectedOptions) => {
                                         handleMulti1(selectedOptions);
                                       }}
-                                      options={departmentype}
+                                      options={uniqueDepartmentTypes}
                                     />
                                   </div>
                                 </Col>
+
                                 <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
@@ -416,7 +421,7 @@ const AddCommunity = () => {
                                     />
                                   </div>
                                 </Col>
-                                {/* <Col sm={4}></Col> */}
+                                <Col sm={4}></Col>
                                 <Col sm={2}>
                                   <div className="mt-3">
                                     <Input

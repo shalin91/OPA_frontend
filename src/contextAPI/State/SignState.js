@@ -211,6 +211,17 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
+  const addTask = async (depGrpData) => {
+    try {
+      const response = await axios.post(
+        `${url}/addtask/addnewtask`,
+        depGrpData
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
   const deletegrp = async (id) => {
     try {
       const response = await axios.post(
@@ -421,6 +432,14 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
+  const GetallAddTask = async () => {
+    try {
+      const response = await axios.get(`${url}/addtask/getalltask`, {});
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
   const DeleteLocation = async (id) => {
     try {
       const response = await axios.post(
@@ -447,6 +466,17 @@ export const SignState = (props) => {
     try {
       const response = await axios.post(
         `${url}/employeename/deleteemployeename/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const DeleteAddTask = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${url}/addtask/deletetask/${id}`,
         {}
       );
       return response;
@@ -504,7 +534,10 @@ export const SignState = (props) => {
         GetEmployeeRoleById,
         addEmployeeName,
         GetallEmployeeName,
-        DeleteEmployeeName
+        DeleteEmployeeName,
+        addTask,
+        GetallAddTask,
+        DeleteAddTask
       }}
     >
       {props.children}
