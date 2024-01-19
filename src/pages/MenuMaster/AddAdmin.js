@@ -31,7 +31,7 @@ const AddAdmin = () => {
                 }
                 onSubmit={(values, { resetForm }) => {
                   //   addCheckupDetails(values);
-                  //   resetForm();
+                    // resetForm();
                 }}
               >
                 {({

@@ -211,6 +211,17 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
+  const addCommMaster=async(hii)=>{
+    try {
+      const response = await axios.get(
+        `${url}/communitymaster/getcommunitymessage`,hii
+        
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  }
   const deletegrp = async (id) => {
     try {
       const response = await axios.post(
@@ -288,6 +299,7 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
+  
 
   const GetDepTypeById = async (id) => {
     try {
@@ -404,6 +416,7 @@ export const SignState = (props) => {
     }
   };
 
+
   const GetallLocation = async () => {
     try {
       const response = await axios.get(`${url}/location/getlocations`, {});
@@ -504,7 +517,8 @@ export const SignState = (props) => {
         GetEmployeeRoleById,
         addEmployeeName,
         GetallEmployeeName,
-        DeleteEmployeeName
+        DeleteEmployeeName,
+        addCommMaster
       }}
     >
       {props.children}

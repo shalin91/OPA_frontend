@@ -23,35 +23,37 @@ const SingleOptions = [
 ];
 
 const AddCommunity = () => {
-  const { GetallDepartmentGroup,GetallLocation,GetallDepartmentType } = useContext(SignContext);
- 
+  
+  const { GetallDepartmentGroup, GetallLocation, GetallDepartmentType,GetallEmployeeRole,GetallEmployeeName,addcommunitymaster,addCommMaster } =useContext(SignContext);
+
+
   const [selectedMulti, setselectedMulti] = useState(null);
   const [selectedMulti1, setselectedMulti1] = useState(null);
   const [selectedMulti2, setselectedMulti2] = useState(null);
+  const [selectedMulti3, setselectedMulti3] = useState(null);
+  const [selectedMulti4, setselectedMulti4] = useState(null);
   const [dep, setdep] = useState(null);
-  const [loc,setloc]=useState(null);
-  const [dtype,setdtype]=useState(null);
-  const uniqueValuesSet = new Set();
-  const getdepgroup = async () => {
-    const response = await GetallDepartmentGroup();
+  const [loc, setloc] = useState(null);
+  const [dtype, setdtype] = useState(null);
+  const [emprole,setemprole]=useState(null);
+  const [empname,setempname]=useState(null);
+  
+  
+  const [uniqueDepartmentTypes, setUniqueDepartmentTypes] = useState([]);
+  
+  const [uniqueEmployeeRoles, setUniqueEmployeeRoles] = useState([]);
 
-    const names = response.data.map((item) => ({
-      value: item._id,
-      label: item.name,
-      id: item._id,
-    }));
-    setdep(names);
-  };
-  const getdeptype = async () => {
-    const response = await GetallDepartmentType();
-    //  console.log("res>>",response);
-    const names = response.data.map((item) => ({
-      value: item._id,
-      label: item.name,
-      id: item.departmentGroup._id,
-    }));
-    setdtype(names);
-  };
+  const [uniqueEmployeeNames, setuniqueEmployeeNames] = useState([]);
+
+  useEffect(() => {
+    
+    console.log(uniqueDepartmentTypes);
+  }, [uniqueDepartmentTypes]);
+  useEffect(() => {
+    console.log(uniqueEmployeeRoles);
+  }, [uniqueEmployeeRoles]);
+
+
   const getloc = async () => {
     const response = await GetallLocation();
 
@@ -62,54 +64,166 @@ const AddCommunity = () => {
     }));
     setloc(names);
   };
+
+  const getdepgroup = async () => {
+    const response = await GetallDepartmentGroup();
+
+    const names = response.data.map((item) => ({
+      value: item._id,
+      label: item.name,
+      id: item._id,
+
+    }));
+    setdep(names);
+  };
+  const getdeptype = async () => {
+    const response = await GetallDepartmentType();
+    //  console.log("res>>",response);
+    const names = response.data.map((item) => ({
+      value: item._id,
+      label: item.name,
+      id: item.departmentGroup._id,
+      new_id:item._id
+    }));
+    setdtype(names);
+  };
+
+  const getemprole=async()=>{
+    const response=await GetallEmployeeRole();
+    const names=response.data.map((item)=>({
+      value:item._id,
+      label:item.EmployeeRole,
+      id:item.departmentType._id,
+      new_empId:item._id
+    }));
+    setemprole(names);
+    console.log(names)
+  } 
+   const getempname=async()=>{
+    const response=await GetallEmployeeName();
+    const names=response.data.map((item)=>({
+      value:item._id,
+      label:item.name,
+      id:item.employeeRole._id,
+    }))
+    setempname(names);
+    console.log(names)
+  }
+
   function handleMulti(selectedMulti) {
     setselectedMulti(selectedMulti);
-    // console.log(selectedMulti);
-    // console.log("hello",dtype.length);
+    let selectedValues = [];
     for (let i = 0; i < selectedMulti.length; i++) {
-      
-      if (dtype && dtype.length > 0) {
-        for (let j = 0; j < dtype.length; j++) {
-          
-          if (dtype[j] && dtype[j].id === selectedMulti[i].id) {
-            console.log("hello", dtype[j].label,dtype[j].id);
-            const obj = {
-              name: dtype[j].label,
-              id: dtype[j].id
-            };
-            const objString = JSON.stringify(obj);
-            if (!uniqueValuesSet.has(objString)) {
-              uniqueValuesSet.add(objString);
-            }
-          }
+      const selectempId = selectedMulti[i].id;
 
+      for (let j = 0; j < dtype.length; j++) {
+        const departtype = dtype[j];
 
+        if (departtype && departtype.id === selectempId) {
+          selectedValues.push({
+            label: departtype.label,
+            id: departtype.id,
+            value: departtype.label,
+            new_Id:departtype.new_id
+            
+            
+          });
         }
-
-        console.log(uniqueValuesSet);
       }
     }
+    setUniqueDepartmentTypes(selectedValues);
+
+    console.log(uniqueDepartmentTypes);
     
+  //  console.log(selectedMulti);
   }
+
   function handleMulti1(selectedMulti1) {
+    console.log("hello");
+    console.log(selectedMulti1)
     setselectedMulti1(selectedMulti1);
-    console.log(selectedMulti1);
+    
+   let selectedempValues = [];
+   for (let i = 0; i < selectedMulti1.length; i++) {
+     const selectId = selectedMulti1[i].new_Id;
+    //  console.log(selectId)
+
+     for (let j = 0; j < emprole.length; j++) {
+       const employeetype = emprole[j];
+       // console.log(employeetype);
+
+       if (employeetype && employeetype.id === selectId) {
+         selectedempValues.push({
+           label: employeetype.label,
+           id: employeetype.id,
+           value: employeetype.label,
+           neww_id:employeetype.new_empId,
+           
+         });
+       }
+     }
+   }
+   setUniqueEmployeeRoles(selectedempValues);
+  
+ }
+ function handleMulti4(selectedMulti4) {
+   setselectedMulti4(selectedMulti4);
+
   }
   function handleMulti2(selectedMulti2) {
+  
     setselectedMulti2(selectedMulti2);
-    console.log(selectedMulti2);
+  
+
+  }
+
+  function handleMulti3(selectedMulti3) {
+   
+    setselectedMulti3(selectedMulti3);
+    let selectedempNames = [];
+    for (let i = 0; i < selectedMulti3.length; i++) {
+      const selectId = selectedMulti3[i].neww_id;
+      
+
+      for (let j = 0; j < empname.length; j++) {
+        const EmployeeName = empname[j];
+       
+
+        if (EmployeeName && EmployeeName.id === selectId) {
+          selectedempNames.push({
+            label: EmployeeName.label,
+            id: EmployeeName.id,
+            value: EmployeeName.label,            
+          });
+        }
+      }
+    }
+  setuniqueEmployeeNames(selectedempNames);
+  console.log(selectedempNames)
+
   }
   useEffect(() => {
     getdepgroup();
     getloc();
     getdeptype();
+    getemprole();
+    getempname();
   }, []);
+
   useEffect(() => {
-    console.log(dep);
-  }, [dep]);
+    // console.log(dep);
+  }, [dep]); 
   useEffect(() => {
-    console.log("departmenttype>>",dtype);
+    // console.log("departmenttype>>", dtype);
   }, [dtype]);
+  useEffect(() => {
+    // console.log(emprole);
+  }, [emprole]);
+    useEffect(() => {
+    // console.log(emprole);
+  }, [empname]);
+  
+  
   return (
     <>
       <UiContent />
@@ -118,25 +232,29 @@ const AddCommunity = () => {
           <BreadCrumb
             grandParent="Setup"
             parent="Company Master"
-            child="Add-Company"
-          />
+            child="Add-Company"/>
           <Row>
             <Col lg={12}>
               <Formik
-                // validationSchema={schema}
+                // validationSchema={validationSchema}
                 initialValues={
-                  {
-                    // location:"",
-                    // departmentGroup: "",
-                    // departmentType: "",
-                    // employeeRole: "",
-                    // EmployeeAccess: "",
+                  { 
+                    name:"",
+                    uploadimage:null,
+                    message:"",
+                    locationSchema:[],
+                    departmentGroup:[],
+                    departmentType:[],
+                    employeeRole:[],
+                    employeeName:[],
+                    isActive:true,
                   }
                 }
                 onSubmit={(values, { resetForm }) => {
-                  //   addCheckupDetails(values);
-                  // addCommunityName1(values);
-                  // resetForm();
+                    // addCheckupDetails(values);
+                    console.log(">>>",values)
+                    addcommunitymaster(values);
+                  resetForm();
                 }}
               >
                 {({
@@ -149,7 +267,9 @@ const AddCommunity = () => {
                 }) => (
                   <div className="login">
                     <div className="form">
+                      {/* Passing handleSubmit parameter tohtml form onSubmit property */}
                       <form noValidate onSubmit={handleSubmit}>
+                        {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
                         <Card>
                           <CardHeader>
                             <Row className="g-1 m-1">
@@ -234,45 +354,6 @@ const AddCommunity = () => {
                             </div>
                           </div>
                         </Card>
-                      </form>
-                    </div>
-                  </div>
-                )}
-              </Formik>
-            </Col>
-          </Row>
-
-          {/* //second row */}
-          <Row>
-            <Col lg={12}>
-              <Formik
-                // validationSchema={schema}
-                initialValues={
-                  {
-                    //   checkupName: "",
-                    //   checkupNumber: "",
-                    //   checkupDate: "",
-                    //   checkupType: "",
-                  }
-                }
-                onSubmit={(values, { resetForm }) => {
-                  //   addCheckupDetails(values);
-                  resetForm();
-                }}
-              >
-                {({
-                  values,
-                  errors,
-                  touched,
-                  handleChange,
-                  handleBlur,
-                  handleSubmit,
-                }) => (
-                  <div className="login">
-                    <div className="form">
-                      {/* Passing handleSubmit parameter tohtml form onSubmit property */}
-                      <form noValidate onSubmit={handleSubmit}>
-                        {/* Our input html with passing formik parameters like handleChange, values, handleBlur to input properties */}
 
                         <Card>
                           <CardHeader>
@@ -341,47 +422,48 @@ const AddCommunity = () => {
                                       onChange={(selectedOptions) => {
                                         handleMulti1(selectedOptions);
                                       }}
-                                      options={SingleOptions}
+                                      options={uniqueDepartmentTypes}
                                     />
                                   </div>
                                 </Col>
-                                {/* <Col lg={4}>
+
+                                <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
                                       htmlFor="choices-multiple-default"
                                       className="form-label text-muted"
                                     >
-                                      Employess Roles
+                                      Employee Roles
                                     </Label>
                                     <Select
-                                      value={selectedMulti}
+                                      value={selectedMulti3}
                                       isMulti={true}
-                                      onChange={() => {
-                                        handleMulti();
+                                      onChange={(selectedOptions) => {
+                                        handleMulti3(selectedOptions);
                                       }}
-                                      options={SingleOptions}
+                                      options={uniqueEmployeeRoles}
                                     />
                                   </div>
-                                </Col> */}
-                                {/* <Col lg={4}>
+                                </Col>
+                                <Col lg={4}>
                                   <div className="mb-3">
                                     <Label
                                       htmlFor="choices-multiple-default"
                                       className="form-label text-muted"
                                     >
-                                      Employees Access
+                                      Employee Name
                                     </Label>
                                     <Select
-                                      value={selectedMulti}
+                                      value={selectedMulti4}
                                       isMulti={true}
-                                      onChange={() => {
-                                        handleMulti();
+                                      onChange={(selectedOptions) => {
+                                        handleMulti4(selectedOptions);
                                       }}
-                                      options={SingleOptions}
+                                      options={uniqueEmployeeNames}
                                     />
                                   </div>
-                                </Col> */}
-                                {/* <Col sm={4}></Col> */}
+                                </Col>
+                                <Col sm={4}></Col>
                                 <Col sm={2}>
                                   <div className="mt-3">
                                     <Input
@@ -422,3 +504,4 @@ const AddCommunity = () => {
 };
 
 export default AddCommunity;
+

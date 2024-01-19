@@ -99,6 +99,7 @@ import AddMenu from "../pages/MenuMaster/AddMenu";
 import RolesResponsibility from "../pages/MenuMaster/RolesResponsibility";
 import AdminUser from "../pages/MenuMaster/AdminUser";
 import AddAdmin from "../pages/MenuMaster/AddAdmin";
+// import AddCommunity from "../pages/MenuMaster/AddCommunity";
 import CommunityUpdateMaster from "../pages/MenuMaster/CommunityUpdateMaster";
 import DepartmentType from "../pages/MenuMaster/DepartmentType";
 import AddDepType from "../pages/MenuMaster/AddDepType";
