@@ -15,6 +15,24 @@ import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
 const AddTask = () => {
+  const [departmenttype, setdepartmentype] = useState(null);
+  const { GetallDepartmentType,addTask } = useContext(SignContext);
+  const getalldtype = async () => {
+    const response = await GetallDepartmentType();
+    // console.log(response);
+    setdepartmentype(response.data);
+  };
+  const addDetails = async (values) => {
+    const response = await addTask(values);
+
+    console.log(response);
+  };
+  useEffect(() => {
+    getalldtype();
+  }, []);
+  useEffect(() => {
+    console.log(departmenttype);
+  }, [departmenttype]);
   return (
     <>
       <UiContent />
@@ -31,15 +49,17 @@ const AddTask = () => {
                 // validationSchema={schema}
                 initialValues={
                   {
-                    //   checkupName: "",
-                    //   checkupNumber: "",
-                    //   checkupDate: "",
-                    //   checkupType: "",
+                    departmentType:"",
+                    taskName:"",
+                    taskType:"",
+                    accessLocation:"",
+                    detail:"",
+                    isActive: true,
                   }
                 }
                 onSubmit={(values, { resetForm }) => {
-                  //   addCheckupDetails(values);
-                  //   resetForm();
+                    addDetails(values);
+                    resetForm();
                 }}
               >
                 {({
@@ -81,15 +101,24 @@ const AddTask = () => {
                                   <div className="">
                                     <select
                                       className="form-select"
-                                      name="checkupType"
+                                      name="departmentType"
                                       onBlur={handleBlur}
-                                      value={values.checkupType}
+                                      value={values.departmentType}
                                       onChange={handleChange}
                                     >
                                       <option value="">--select--</option>
-                                      <option value="">abc</option>
-                                      <option value="">def</option>
-                                      <option value="">fgh</option>
+                                      {departmenttype &&
+                                      departmenttype.length > 0 ? (
+                                        departmenttype.map((type) => (
+                                          <option key={type} value={type._id}>
+                                            {type.name}
+                                          </option>
+                                        ))
+                                      ) : (
+                                        <option value="" disabled>
+                                          No locations available
+                                        </option>
+                                      )}
                                     </select>
                                   </div>
                                   <p className="error text-danger">
@@ -111,13 +140,13 @@ const AddTask = () => {
                                       row="5"
                                       className="form-control"
                                       id="product-orders-input"
-                                      name="checkupNumber"
+                                      name="taskName"
                                       aria-label="orders"
                                       ar
                                       ia-describedby="product-orders-addon"
                                       onChange={handleChange}
                                       onBlur={handleBlur}
-                                      value={values.checkupNumber}
+                                      value={values.taskName}
                                     />
                                   </div>
 
@@ -128,24 +157,25 @@ const AddTask = () => {
                                   </p>
                                 </Col>
 
+                                
                                 <Col sm={4}>
                                   <label
                                     className="form-label mt-3"
                                     htmlFor="product-orders-input"
                                   >
-                                    Task Type
+                                    Task Types
                                   </label>
                                   <div className="">
                                     <select
                                       className="form-select"
-                                      name="checkupType"
+                                      name="taskType"
                                       onBlur={handleBlur}
-                                      value={values.checkupType}
+                                      value={values.taskType}
                                       onChange={handleChange}
                                     >
                                       <option value="">--select--</option>
-                                      <option value="">abc</option>
-                                      <option value="">def</option>
+                                      <option value="Form">Form</option>
+                                      <option value="Data">Data</option>
                                     </select>
                                   </div>
                                   <p className="error text-danger">
@@ -155,7 +185,7 @@ const AddTask = () => {
                                   </p>
                                 </Col>
 
-                                <Col sm={4} className="mb-5">
+                                <Col sm={4}>
                                   <label
                                     className="form-label mt-3"
                                     htmlFor="product-orders-input"
@@ -165,14 +195,14 @@ const AddTask = () => {
                                   <div className="">
                                     <select
                                       className="form-select"
-                                      name="checkupType"
+                                      name="accessLocation"
                                       onBlur={handleBlur}
-                                      value={values.checkupType}
+                                      value={values.accessLocation}
                                       onChange={handleChange}
                                     >
                                       <option value="">--select--</option>
-                                      <option value="">yes</option>
-                                      <option value="">no</option>
+                                      <option value="Yes">Yes</option>
+                                      <option value="No">No</option>
                                     </select>
                                   </div>
                                   <p className="error text-danger">
@@ -194,23 +224,25 @@ const AddTask = () => {
                                       className="form-control"
                                       id="exampleFormControlTextarea5"
                                       rows="4"
+                                      name="detail"
+                                      value={values.detail}
+                                      onChange={handleChange}
                                     ></textarea>
                                   </div>
                                 </Col>
                                 <Col sm={2}>
-                              <div className="mt-3">
-                                <Input
-                                  type="checkbox"
-                                  id="isActive"
-                                  label="Is Active"
-                                  name="active"
-                                  checked={values.active}
-                                  onChange={handleChange}
-                                />
-                                <label className="me-2">Is Active</label>
-                              </div>
-                               </Col>
-
+                                  <div className="mt-3">
+                                    <Input
+                                      type="checkbox"
+                                      id="isActive"
+                                      label="Is Active"
+                                      name="isActive"
+                                      checked={values.isActive}
+                                      onChange={handleChange}
+                                    />
+                                    <label className="me-2">Is Active</label>
+                                  </div>
+                                </Col>
                               </Row>
                             </div>
                           </div>

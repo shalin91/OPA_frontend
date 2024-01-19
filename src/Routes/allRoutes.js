@@ -178,8 +178,8 @@ const authProtectedRoutes = [
   { path: "/document-access", component: <DocumentAccess /> },
   { path: "/add-documentaceess", component: <AddDocumentAccess /> },
 
-  { path: "/add-taskmaster", component: <AddTaskMaster /> },
-  { path: "/add-task", component: <AddTask /> },
+  { path: "/add-taskmaster", component: <SignState><AddTaskMaster /></SignState>},
+  { path: "/add-task", component: <SignState><AddTask /></SignState>},
   { path: "/assign-master", component: <AssignMaster /> },
   { path: "/assign-task", component: <AssignTask /> },
   { path: "/add-community", component:<SignState> <AddCommunity /></SignState> },
