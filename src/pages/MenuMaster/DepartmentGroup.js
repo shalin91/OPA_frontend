@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/brands/slack.png";
 import SignContext from "../../contextAPI/Context/SignContext";
 import { useNavigate } from 'react-router-dom';
+
 import {
   Button,
   Card,
@@ -28,6 +29,7 @@ import {
 const DepartmentGroup = () => {
   const { GetallDepartmentGroup ,deletegrp } = useContext(SignContext);
   const [depgroup, setDepgroup] = useState(null);
+  // const [itemsPerPage] = useState(3);
   const navigate=useNavigate();
   const getdepgroup = async () => {
     const response = await GetallDepartmentGroup();

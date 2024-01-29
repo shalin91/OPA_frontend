@@ -187,12 +187,21 @@ export const SignState = (props) => {
 
   //opa integration begins.........
 
-
-
   const addDepGroup = async (depGrpData) => {
     try {
       const response = await axios.post(
         `${url}/departmentgroup/adddepartmentgroup`,
+        depGrpData
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const addMenu = async (depGrpData) => {
+    try {
+      const response = await axios.post(
+        `${url}/menu/addmenumaster`,
         depGrpData
       );
       return response;
@@ -245,6 +254,7 @@ export const SignState = (props) => {
   };
   const addLocation = async (depGrpData) => {
     try {
+      console.log(depGrpData);
       const response = await axios.post(
         `${url}/location/addlocation`,
         depGrpData
@@ -288,12 +298,31 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
+  const GetallAssignTask = async () => {
+    try {
+      const response = await axios.get(
+        `${url}/assigntask/getassigntask`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
   const GetallDepartmentType = async () => {
     try {
       const response = await axios.get(
         `${url}/departmenttype/getdepartmentstypes`,
         {}
       );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const GetallMenuMaster = async () => {
+    try {
+      const response = await axios.get(`${url}/menu/getallmenumaster`, {});
       return response;
     } catch (error) {
       return { success: false, msg: "server Error" };
@@ -311,8 +340,18 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
-  
-  const GetEmployeeRoleById = async (id,id1) => {
+  const GetSpecificTaskByDepartmentGroup = async (id) => {
+    try {
+      const response = await axios.get(
+        `${url}/addtask/getalltaskbydtype/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
+  const GetEmployeeRoleById = async (id, id1) => {
     try {
       const response = await axios.get(
         `${url}/employeerole/getemployeerolebygroupandtype/${id}/${id1}`,
@@ -323,7 +362,6 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
-
 
   const GetDepTypeByIdForEditing = async (id) => {
     try {
@@ -369,13 +407,35 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
-
+  const setEditAddTaskValues = async (
+    id,
+    departmentType,
+    taskName,
+    taskType,
+    accessLocation,
+    detail,
+    isActive
+  ) => {
+    try {
+      const response = await axios.post(`${url}/addtask/edittask/${id}`, {
+        departmentType,
+        taskName,
+        taskType,
+        accessLocation,
+        detail,
+        isActive,
+      });
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
   const setEditLocationValues = async (id, name, isActive) => {
     try {
-      const response = await axios.post(
-        `${url}/location/editlocation/${id}`,
-        { name, isActive }
-      );
+      const response = await axios.post(`${url}/location/editlocation/${id}`, {
+        name,
+        isActive,
+      });
       return response;
     } catch (error) {
       console.error("Error during API call:", error);
@@ -392,11 +452,29 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
-  const setEditEmployeeRoleValues = async (id, departmentGroup, departmentType,EmployeeRole ,isActive) => {
+  const setEditMenuMastervalues = async (id, menugroup, menuname, isActive) => {
+    try {
+      const response = await axios.post(`${url}/menu/editmenumaster/${id}`, {
+        menugroup,
+        menuname,
+        isActive,
+      });
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
+  const setEditEmployeeRoleValues = async (
+    id,
+    departmentGroup,
+    departmentType,
+    EmployeeRole,
+    isActive
+  ) => {
     try {
       const response = await axios.post(
         `${url}/employeerole/editemployeerole/${id}`,
-        { departmentGroup, departmentType,EmployeeRole ,isActive }
+        { departmentGroup, departmentType, EmployeeRole, isActive }
       );
       return response;
     } catch (error) {
@@ -426,7 +504,28 @@ export const SignState = (props) => {
 
   const GetallEmployeeName = async () => {
     try {
-      const response = await axios.get(`${url}/employeename/getemployeenames`, {});
+      const response = await axios.get(
+        `${url}/employeename/getemployeenames`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const addCommMaster = async (commMasterData) => {
+    try {
+      const response = await axios.post(`
+        ${url}/communitymaster/addcommunitymessages,commMasterData`);
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const addAssignTaskmaster = async (documentname,documentdepartmenttype,tasktypes,documenttype,formlink,documentlink,uploaddocument,documentdescription,locationSchema,departmentGroup,departmentType,employeeRole,employeeName,isActive) => {
+    try {
+      const response = await axios.post(`
+        ${url}/assigntask/addassigntask`,{documentname,documentdepartmenttype,tasktypes,documenttype,formlink,documentlink,uploaddocument,documentdescription,locationSchema,departmentGroup,departmentType,employeeRole,employeeName,isActive});
       return response;
     } catch (error) {
       return { success: false, msg: "server Error" };
@@ -484,7 +583,15 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
-  const GetLocationById=async(id)=>{
+  const DeleteMenuMaster = async (id) => {
+    try {
+      const response = await axios.delete(`${url}/menu/deletemenu/${id}`, {});
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const GetLocationById = async (id) => {
     try {
       const response = await axios.post(
         `${url}/location/getlocationbyid/${id}`,
@@ -494,7 +601,26 @@ export const SignState = (props) => {
     } catch (error) {
       return { success: false, msg: "server Error" };
     }
-  }
+  };
+  const GetSpecificMenuMaster = async (id) => {
+    try {
+      const response = await axios.get(`${url}/menu/getspecificmenu/${id}`, {});
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
+  const GetAddTaskById = async (id) => {
+    try {
+      const response = await axios.get(
+        `${url}/addtask/getspecifictask/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  };
   return (
     <SignContext.Provider
       value={{
@@ -537,7 +663,18 @@ export const SignState = (props) => {
         DeleteEmployeeName,
         addTask,
         GetallAddTask,
-        DeleteAddTask
+        DeleteAddTask,
+        GetAddTaskById,
+        setEditAddTaskValues,
+        addCommMaster,
+        addMenu,
+        GetallMenuMaster,
+        DeleteMenuMaster,
+        GetSpecificMenuMaster,
+        setEditMenuMastervalues,
+        GetSpecificTaskByDepartmentGroup,
+        addAssignTaskmaster,
+        GetallAssignTask
       }}
     >
       {props.children}

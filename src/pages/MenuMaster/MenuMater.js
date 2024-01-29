@@ -1,10 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import BreadCrumb from "../../Components/Common/BreadCrumb";
+import UiContent from "../../Components/Common/UiContent";
+import PreviewCardHeader from "../../Components/Common/PreviewCardHeader";
+import { Link } from "react-router-dom";
+import logo from "../../assets/images/brands/slack.png";
+import SignContext from "../../contextAPI/Context/SignContext";
+import { useNavigate } from "react-router-dom";
+
 import {
   Button,
   Card,
   CardBody,
   CardHeader,
   Col,
+  Input,
+  Label,
+  Table,
   Container,
   ListGroup,
   ListGroupItem,
@@ -14,248 +25,115 @@ import {
   ModalHeader,
   Row,
 } from "reactstrap";
-import BreadCrumb from "../../Components/Common/BreadCrumb";
-import { Link } from "react-router-dom";
-import List from "list.js";
-const MenuMater = () => {
-  useEffect(() => {
-    // pagination list
 
-    new List("pagination-list", {
-      valueNames: ["pagi-list"],
-      page: 3,
-      pagination: true,
-    });
-  });
+const MenuMater = () => {
+  const { GetallMenuMaster, DeleteMenuMaster } = useContext(SignContext);
+  const [menumaster, setmenumaster] = useState(null);
+  const navigate = useNavigate();
+  const getallmenumaster = async () => {
+    const res = await GetallMenuMaster();
+    console.log(res);
+    setmenumaster(res.data);
+  };
+  const handleDelete = async (id) => {
+    const abc1 = window.confirm("Are you sure you want to delete?");
+    if (abc1) {
+      const res = await DeleteMenuMaster(id);
+      getallmenumaster();
+    }
+  };
+  const handleEdit = async (id) => {
+    navigate(`/edit-menu/${id}`);
+  };
+  useEffect(() => {
+    getallmenumaster();
+  }, []);
+
   return (
     <>
+      <UiContent />
       <div className="page-content">
-        <Container fluid>
-          <BreadCrumb title="Listjs" pageTitle="Tables" />
+        <Container fluid={true}>
+          <BreadCrumb title="Form Validation" pageTitle="Forms" />
+
           <Row>
-            <Col lg={12}>
+            <Col xl={12}>
               <Card>
-                <CardHeader>
-                  <div className="d-flex align-items-center flex-wrap gap-2">
-                    <div className="flex-grow-1">
-                      <h3>Menu Master</h3>
-                    </div>
-                    <div>
-                    <Link to="/add-menu" className="btn btn-info add-btn">
-                      <button className="btn btn-info add-btn">
-                        <i className="ri-add-fill me-1 align-bottom"></i> Add
-                        Menu
-                      </button>
-                      </Link>
-                    </div>
-                  </div>
-                </CardHeader>
-
-                <CardBody>
-                  <div id="customerList">
-                    <Row className="g-4 mb-3">
-                      <Col className="col-sm-auto">
-                        {/* <div>
-                                        
-                                            <Button color="success" className="add-btn me-1"  id="create-btn"><i className="ri-add-line align-bottom me-1"></i> Add</Button>
-                                            <Button className="btn btn-soft-danger"
-                                            
-                                            ><i className="ri-delete-bin-2-line"></i></Button>
-                                        </div> */}
-                      </Col>
-                      <Col className="col-sm">
-                        <div className="d-flex justify-content-sm-end">
-                          <div className="search-box ms-2">
-                            <input
-                              type="text"
-                              className="form-control search"
-                              placeholder="Search..."
-                            />
-                            <i className="ri-search-line search-icon"></i>
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-
-                    <div className="table-responsive table-card mt-3 mb-1">
-                      <table
-                        className="table align-middle table-nowrap"
-                        id="customerTable"
+                <div className="d-flex flex-wrap justify-content-between align-items-center">
+                  <PreviewCardHeader title="User Detail" />
+                  <div className="mt-3 mb-2">
+                    <Link to="/add-menu">
+                      <button
+                        className="btn btn-primary"
+                        type="submit"
+                        style={{ marginRight: "9px" }}
                       >
+                        Add Menu
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+                <CardBody>
+                  <div className="live-preview">
+                    <div className="table-responsive">
+                      <Table className="align-middle table-nowrap mb-0">
                         <thead className="table-light">
                           <tr>
-                            <th scope="col" style={{ width: "50px" }}>
-                              {/* <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox" id="checkAll" value="option" />
-                                                    </div> */}
-                            </th>
-                            <th className="" data-sort="customer_name">
-                              ID
-                            </th>
-                            <th className="" data-sort="email">
-                              Name
-                            </th>
-                            <th className="" data-sort="phone">
-                              Menu Group
-                            </th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Menu Group </th>
 
-                            <th className="" data-sort="status">
-                              Status
-                            </th>
-                            <th className="" data-sort="action">
-                              Actions
-                            </th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
                           </tr>
                         </thead>
-                        <tbody className="list form-check-all">
-                          <tr>
-                            <th scope="row">
-                              {/* <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox" name="chk_child" value="option1" />
-                                                    </div> */}
-                            </th>
-                            <td className="id" style={{ display: "none" }}>
-                              <Link to="#" className="fw-medium link-primary">
-                                #VZ2101
-                              </Link>
-                            </td>
-                            <td className="customer_name">1</td>
-                            <td className="email">abcdef</td>
-                            <td className="phone">menu group</td>
-
-                            <td className="status">
-                              <span className="badge badge-soft-success text-uppercase">
-                                Active
-                              </span>
-                            </td>
-                            <td>
-                              <div className="d-flex gap-2">
-                                <div className="edit">
-                                  <button
-                                    className="btn btn-sm btn-success edit-item-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#showModal"
-                                  >
-                                    Edit
-                                  </button>
-                                </div>
-                                <div className="remove">
-                                  <button
-                                    className="btn btn-sm btn-danger remove-item-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteRecordModal"
-                                  >
-                                    Remove
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <th scope="row">
-                              {/* <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox" name="chk_child" value="option1" />
-                                                    </div> */}
-                            </th>
-                            <td className="id" style={{ display: "none" }}>
-                              <Link to="#" className="fw-medium link-primary">
-                                #VZ2101
-                              </Link>
-                            </td>
-                            <td className="customer_name">1</td>
-                            <td className="email">abcdef</td>
-                            <td className="phone">menu group</td>
-
-                            <td className="status">
-                              <span className="badge badge-soft-success text-uppercase">
-                                Active
-                              </span>
-                            </td>
-                            <td>
-                              <div className="d-flex gap-2">
-                                <div className="edit">
-                                  <button
-                                    className="btn btn-sm btn-success edit-item-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#showModal"
-                                  >
-                                    Edit
-                                  </button>
-                                </div>
-                                <div className="remove">
-                                  <button
-                                    className="btn btn-sm btn-danger remove-item-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteRecordModal"
-                                  >
-                                    Remove
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-
-                          <tr>
-                            <th scope="row">
-                              {/* <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox" name="chk_child" value="option1" />
-                                                    </div> */}
-                            </th>
-                            <td className="id" style={{ display: "none" }}>
-                              <Link to="#" className="fw-medium link-primary">
-                                #VZ2101
-                              </Link>
-                            </td>
-                            <td className="customer_name">1</td>
-                            <td className="email">abcdef</td>
-                            <td className="phone">menu group</td>
-
-                            <td className="status">
-                              <span className="badge badge-soft-success text-uppercase">
-                                Active
-                              </span>
-                            </td>
-                            <td>
-                              <div className="d-flex gap-2">
-                                <div className="edit">
-                                  <button
-                                    className="btn btn-sm btn-success edit-item-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#showModal"
-                                  >
-                                    Edit
-                                  </button>
-                                </div>
-                                <div className="remove">
-                                  <button
-                                    className="btn btn-sm btn-danger remove-item-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteRecordModal"
-                                  >
-                                    Remove
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
+                        <tbody>
+                          {menumaster &&
+                            menumaster.length > 0 &&
+                            menumaster.map((type, index) => {
+                              return (
+                                <tr key={type._id}>
+                                  <td>{index + 1}</td>
+                                  <td>{type.menuname}</td>
+                                  <td>{type.menugroup}</td>
+                                  <td>
+                                    {type.isActive ? (
+                                      <span className="badge bg-success">
+                                        Active
+                                      </span>
+                                    ) : (
+                                      <span className="badge bg-danger">
+                                        InActive
+                                      </span>
+                                    )}
+                                  </td>
+                                  <td>
+                                    <div className="d-flex gap-2 align-items-center">
+                                      <div className="flex-shrink-0">
+                                        <button
+                                          type="button"
+                                          className="btn btn-danger btn-icon waves-effect waves-light"
+                                          onClick={() => handleEdit(type._id)}
+                                        >
+                                          <i className="ri-pencil-fill"></i>
+                                        </button>
+                                      </div>
+                                      <div className="flex-grow-1">
+                                        <button
+                                          type="button"
+                                          className="btn btn-success btn-icon waves-effect waves-light"
+                                          onClick={() => handleDelete(type._id)}
+                                        >
+                                          <i className="ri-delete-bin-5-line"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              );
+                            })}
                         </tbody>
-                      </table>
-                    </div>
-
-                    <div className="d-flex justify-content-end">
-                      <div className="pagination-wrap hstack gap-2">
-                        <Link
-                          className="page-item pagination-prev disabled"
-                          to="#"
-                        >
-                          Previous
-                        </Link>
-                        <ul className="pagination listjs-pagination mb-0"></ul>
-                        <Link className="page-item pagination-next" to="#">
-                          Next
-                        </Link>
-                      </div>
+                      </Table>
                     </div>
                   </div>
                 </CardBody>

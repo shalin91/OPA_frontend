@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import UiContent from "../../Components/Common/UiContent";
 import PreviewCardHeader from "../../Components/Common/PreviewCardHeader";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/brands/slack.png";
 import Example from "./FormOne";
+import SignContext from "../../contextAPI/Context/SignContext";
 import {
   Button,
   Card,
@@ -24,9 +25,20 @@ import {
   Row,
 } from "reactstrap";
 const AssignMaster = () => {
-  const view =()=>{
-    
-  }
+  const { GetallAssignTask } = useContext(SignContext);
+  const [task,settask]=useState(null);
+  const getalltask = async () => {
+    const res = await GetallAssignTask();
+    console.log(res);
+    settask(res.data);
+  };
+
+  useEffect(() => {
+    getalltask();
+  }, []);
+  useEffect(() => {
+    console.log(">>>>>",task)
+  }, [task]);
   return (
     <>
       <UiContent />
@@ -35,7 +47,7 @@ const AssignMaster = () => {
           <BreadCrumb title="Form Validation" pageTitle="Forms" />
 
           <Row>
-          <Col xl={12}>
+            <Col xl={12}>
               <Card>
                 {/* <div className="d-flex">
                   <PreviewCardHeader title="User Detail" />
@@ -45,9 +57,14 @@ const AssignMaster = () => {
                 <div className="d-flex flex-wrap justify-content-between align-items-center">
                   <PreviewCardHeader title="User Detail" />
                   <div className="mt-3 mb-2">
-                    <Link to='/assign-task'><button className="btn btn-primary" type="submit" style={{marginRight:'9px'}}>
-                     Add Assign Task
-                    </button>
+                    <Link to="/assign-task">
+                      <button
+                        className="btn btn-primary"
+                        type="submit"
+                        style={{ marginRight: "9px" }}
+                      >
+                        Add Assign Task
+                      </button>
                     </Link>
                   </div>
                 </div>
@@ -64,12 +81,19 @@ const AssignMaster = () => {
                                                             </div>
                                                         </th> */}
                             <th scope="col">
-                            <br/>ID</th>
-                            <th scope="col">Document 
-                            <br></br> Name</th>
-                            <th scope="col">Document 
-                            <br></br> Department
-                            <br/>Type</th>
+                              <br />
+                              ID
+                            </th>
+                            <th scope="col">
+                              Document
+                              <br></br> Name
+                            </th>
+                            <th scope="col">
+                              Document
+                              <br></br> Department
+                              <br />
+                              Type
+                            </th>
                             <th scope="col">Task Type</th>
                             <th scope="col">Document Type</th>
                             <th scope="col">Access Location</th>
@@ -78,52 +102,57 @@ const AssignMaster = () => {
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>#VZ2110</td>
-                            <td>Human Resources</td>
-                           
-                            <td>Recruitment Form</td>
-                            <td>Form</td>
-                            <td>Form Link</td>
-                            <td>No</td>
-                            <td>
-                              <span className="badge bg-success">Active</span>
-                            </td>
-                            <td>
-                              <div className="d-flex gap-2 align-items-center">
-                                <div className="flex-shrink-0">
-                                  <button
-                                    type="button"
-                                    class="btn btn-danger btn-icon waves-effect waves-light"
-                                  >
-                                    <i class="ri-pencil-fill"></i>
-                                  </button>
-                                </div>
-                                <div className="flex-grow-1">
-                                  <button
-                                    type="button"
-                                    class="btn btn-success btn-icon waves-effect waves-light"
-                                  >
-                                    <i class=" ri-delete-bin-5-line"></i>
-                                  </button>
-                                </div>
-                                </div>
-                                {/* //editing code */}
-                                <Example/>
-                              
-                            </td>
-                          </tr>
+                          {task &&
+                            task.length > 0 &&
+                            task.map((type, index) => {
+                              return (
+                                <tr key={type._id}>
+                                  <td>{index+1}</td>
+                                  {/* <td>{type.name}</td> */}
+                                  <td>
+                                    {type.isActive ? (
+                                      <span className="badge bg-success">
+                                        Active
+                                      </span>
+                                    ) : (
+                                      <span className="badge bg-danger">
+                                        InActive
+                                      </span>
+                                    )}
+                                  </td>
+                                  <td>
+                                    <div className="d-flex gap-2 align-items-center">
+                                      <div className="flex-shrink-0">
+                                        <button
+                                          type="button"
+                                          className="btn btn-danger btn-icon waves-effect waves-light"
+                                          // onClick={() => handleEdit(type._id)}
+                                        >
+                                          <i className="ri-pencil-fill"></i>
+                                        </button>
+                                      </div>
+                                      <div className="flex-grow-1">
+                                        <button
+                                          type="button"
+                                          className="btn btn-success btn-icon waves-effect waves-light"
+                                          // onClick={() => handleDelete(type._id)}
+                                        >
+                                          <i className="ri-delete-bin-5-line"></i>
+                                        </button>
+                                      </div>
+                                      
+                                      <Example/>
+                                      
+                                    </div>
+
+                                  </td>
+                                </tr>
+                              );
+                            })}
                         </tbody>
                       </Table>
                     </div>
                   </div>
-                  {/* <div className="d-none code-view">
-                                        <pre className="language-markup" style={{ "height": "275px" }}>
-                                            <code>
-                                                <ResponsiveTables />
-                                            </code>
-                                        </pre>
-                                    </div> */}
                 </CardBody>
               </Card>
             </Col>
@@ -135,4 +164,3 @@ const AssignMaster = () => {
 };
 
 export default AssignMaster;
-

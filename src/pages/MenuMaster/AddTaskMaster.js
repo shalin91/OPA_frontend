@@ -23,7 +23,9 @@ import {
   Row,
 } from "reactstrap";
 import SignContext from "../../contextAPI/Context/SignContext";
+import { useNavigate } from "react-router-dom";
 const AddTaskMaster = () => {
+  const navigate=useNavigate();
   const { GetallAddTask,DeleteAddTask } = useContext(SignContext);
   const [task, setTask] = useState(null);
   const gettask = async () => {
@@ -40,6 +42,11 @@ const AddTaskMaster = () => {
     }
 
  }
+
+ const handleEdit=async(id)=>{
+  console.log(">>>id",id)
+  navigate(`/edit-task/${id}`)
+}
   useEffect(() => {
     gettask();
   }, []);
@@ -111,7 +118,7 @@ const AddTaskMaster = () => {
                                         <button
                                           type="button"
                                           className="btn btn-danger btn-icon waves-effect waves-light"
-                                          // onClick={() => handleEdit(type._id)}
+                                          onClick={() => handleEdit(type._id)}
                                         >
                                           <i className="ri-pencil-fill"></i>
                                         </button>

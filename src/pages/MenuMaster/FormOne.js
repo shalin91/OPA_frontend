@@ -54,7 +54,7 @@ function Example() {
 
   return (
     <React.Fragment>
-      <div className="flex-grow-1 mt-3 " style={{ marginLeft: "20px" }}>
+      <div className="flex-grow-1 mt-3 " style={{ marginLeft: "0px" }}>
         <button
           type="button"
           class="btn btn-primary btn-icon waves-effect waves-light"
@@ -65,11 +65,13 @@ function Example() {
       </div>
 
       <Modal size="xl" show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton><h5>Task Detail of HR Policy</h5></Modal.Header>
+        <Modal.Header closeButton>
+          <h5>Task Detail of HR Policy</h5>
+        </Modal.Header>
         <Modal.Body>
           <Row>
             <Col lg={6} md={12}>
-              <div className="live-preview" >
+              <div className="live-preview">
                 <div className="table-responsive">
                   <Table className="align-middle table-nowrap mb-0">
                     <thead className="table-light">
@@ -111,8 +113,8 @@ function Example() {
                           <br></br>Description
                         </td>
                         <td>
-                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, eius?
-                          .
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Velit, eius? .
                         </td>
                       </tr>
                     </tbody>
@@ -121,7 +123,7 @@ function Example() {
               </div>
             </Col>
             <Col lg={6} md={12}>
-              <div className="live-preview" >
+              <div className="live-preview">
                 <div className="table-responsive">
                   <Table className="align-middle table-nowrap mb-0">
                     <thead className="table-light">
@@ -142,36 +144,33 @@ function Example() {
                       </tr>
                       <tr>
                         <td>
-                        Department 
-                        <br></br>Group
+                          Department
+                          <br></br>Group
                         </td>
                         <td>abc</td>
                       </tr>
                       <tr>
                         <td>Employee Roles</td>
-                        <td>
-                          abc
-                        </td>
+                        <td>abc</td>
                       </tr>
                       <tr>
-                        <td>Employee
-                        <br></br> Access</td>
+                        <td>
+                          Employee
+                          <br></br> Access
+                        </td>
                         <td>abc || abc</td>
                       </tr>
                       <tr>
                         <td>
-                        Employee 
-                        <br></br>Roles
+                          Employee
+                          <br></br>Roles
                         </td>
-                        <td>
-                          N/A
-                        </td>
+                        <td>N/A</td>
                       </tr>
-                     <tr>
+                      <tr>
                         <td>Status</td>
                         <td>Active</td>
-                     </tr>
-
+                      </tr>
                     </tbody>
                   </Table>
                 </div>

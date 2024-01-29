@@ -125,12 +125,28 @@ import EditDepGrp from "../pages/MenuMaster/EditDepGrp";
 import EditDepType from "../pages/MenuMaster/EditDepType";
 import EditLocation from "../pages/MenuMaster/EditLocation";
 import EditEmployeeRole from "../pages/MenuMaster/EditEmployeeRole";
+import EditAddTask from "../pages/MenuMaster/EditAddTask";
+import EditMenuMaster from "../pages/MenuMaster/EditMenuMaster";
 
 // import customerNew from "../pages/Ecommerce/EcommerceCustomers/customerNew";
 const authProtectedRoutes = [
   { path: "/dashboard", component: <NewDashboard /> },
-  { path: "/menumaster", component: <MenuMater /> },
-  { path: "/add-menu", component: <AddMenu /> },
+  {
+    path: "/menumaster",
+    component: (
+      <SignState>
+        <MenuMater />
+      </SignState>
+    ),
+  },
+  {
+    path: "/add-menu",
+    component: (
+      <SignState>
+        <AddMenu />
+      </SignState>
+    ),
+  },
   { path: "roles-responsibilty", component: <RolesResponsibility /> },
   { path: "/admin-user", component: <AdminUser /> },
   { path: "/add-user", component: <AddAdmin /> },
@@ -178,12 +194,41 @@ const authProtectedRoutes = [
   { path: "/document-access", component: <DocumentAccess /> },
   { path: "/add-documentaceess", component: <AddDocumentAccess /> },
 
-  { path: "/add-taskmaster", component: <SignState><AddTaskMaster /></SignState>},
-  { path: "/add-task", component: <SignState><AddTask /></SignState>},
-  { path: "/assign-master", component: <AssignMaster /> },
-  { path: "/assign-task", component: <AssignTask /> },
-  { path: "/add-community", component:<SignState> <AddCommunity /></SignState> },
-  { path: "/location-master", component: <SignState><LocationMaster /></SignState> },
+  {
+    path: "/add-taskmaster",
+    component: (
+      <SignState>
+        <AddTaskMaster />
+      </SignState>
+    ),
+  },
+  {
+    path: "/add-task",
+    component: (
+      <SignState>
+        <AddTask />
+      </SignState>
+    ),
+  },
+  { path: "/assign-master", component: <SignState><AssignMaster /></SignState>},
+  { path: "/assign-task", component: <SignState><AssignTask /></SignState> },
+  {
+    path: "/add-community",
+    component: (
+      <SignState>
+        {" "}
+        <AddCommunity />
+      </SignState>
+    ),
+  },
+  {
+    path: "/location-master",
+    component: (
+      <SignState>
+        <LocationMaster />
+      </SignState>
+    ),
+  },
   {
     path: "/add-location",
     component: (
@@ -192,7 +237,15 @@ const authProtectedRoutes = [
       </SignState>
     ),
   },
-  { path: "/employee-roles", component:<SignState> <EmployeeRoles /> </SignState>},
+  {
+    path: "/employee-roles",
+    component: (
+      <SignState>
+        {" "}
+        <EmployeeRoles />{" "}
+      </SignState>
+    ),
+  },
   {
     path: "/add-employeerole",
     component: (
@@ -201,8 +254,22 @@ const authProtectedRoutes = [
       </SignState>
     ),
   },
-  { path: "/employee-master", component:<SignState><EmployeeMaster /></SignState>  },
-  { path: "/add-employee", component: <SignState><AddEmployee /></SignState> },
+  {
+    path: "/employee-master",
+    component: (
+      <SignState>
+        <EmployeeMaster />
+      </SignState>
+    ),
+  },
+  {
+    path: "/add-employee",
+    component: (
+      <SignState>
+        <AddEmployee />
+      </SignState>
+    ),
+  },
 
   { path: "/cmsmaster", component: <CMSmaster /> },
   {
@@ -222,10 +289,26 @@ const authProtectedRoutes = [
     ),
   },
   {
+    path: "/edit-task/:id",
+    component: (
+      <SignState>
+        <EditAddTask />
+      </SignState>
+    ),
+  },
+  {
+    path: "/edit-menu/:id",
+    component: (
+      <SignState>
+        <EditMenuMaster />
+      </SignState>
+    ),
+  },
+  {
     path: "/edit-location/:id",
     component: (
       <SignState>
-        <EditLocation/>
+        <EditLocation />
       </SignState>
     ),
   },
@@ -234,7 +317,7 @@ const authProtectedRoutes = [
     path: "/edit-employeerole/:id",
     component: (
       <SignState>
-        <EditEmployeeRole/>
+        <EditEmployeeRole />
       </SignState>
     ),
   },
@@ -276,6 +359,7 @@ const authProtectedRoutes = [
       </SignState>
     ),
   },
+  
   { path: "/pages-timeline", component: <Timeline /> },
   { path: "/pages-faqs", component: <Faqs /> },
   { path: "/pages-gallery", component: <Gallery /> },

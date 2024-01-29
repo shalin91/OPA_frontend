@@ -15,11 +15,12 @@ import {
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
-
+import { useNavigate } from "react-router-dom";
 const AddDepType = () => {
   const [depgroup, setDepgroup] = useState(null);
 
   const { GetallDepartmentGroup, addDepType } = useContext(SignContext);
+  const navigate=useNavigate();
   const getdepgroup = async () => {
     const response = await GetallDepartmentGroup();
 

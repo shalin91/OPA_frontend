@@ -1,22 +1,41 @@
-import React,{ useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import UiContent from "../../Components/Common/UiContent";
-import { Card, CardHeader, Col, Container, Input, Row } from "reactstrap";
+import {
+  Card,
+  CardHeader,
+  Col,
+  Container,
+  Input,
+  Row,
+  Label,
+} from "reactstrap";
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
-import { useNavigate } from 'react-router-dom';
-const AddMenu = () => {
-  const { addMenu } = useContext(SignContext);
-  const navigate=useNavigate();
-  const addMenudata = async (values) => {
-    const response = await addMenu(values);
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+const EditMenuMaster = () => {
+  const navigate = useNavigate();
+  const { setEditMenuMastervalues,GetSpecificMenuMaster } =
+    useContext(SignContext);
+  const { id } = useParams();
+  const [menuid, setmenuid] = useState({
+    menugroup: " ",
+    menuname: " ",
+    isActive: " ",
+  });
 
-    console.log(response);
+  const gettingmenumaster = async (id) => {
+    const res = await GetSpecificMenuMaster(id);
+    console.log(">>>>",res.data);
+    setmenuid(res.data);
   };
-
-
+  
+  useEffect(() => {
+    gettingmenumaster(id);
+  }, []);
   return (
     <>
       <UiContent />
@@ -31,15 +50,18 @@ const AddMenu = () => {
             <Col lg={12}>
               <Formik
                 // validationSchema={schema}
-                initialValues={{
-                  menugroup: "",
-                  menuname:"",
-                  isActive: true,
-                }}
-                onSubmit={(values , { resetForm }) => {
-                  addMenudata(values);
+                initialValues={menuid}
+                onSubmit={(values, { resetForm }) => {
+                  const res = setEditMenuMastervalues(
+                    id,
+                    menuid.menugroup,
+                    menuid.menuname,
+                    menuid.isActive
+                  );
+                  if (res) {
+                    navigate("/menumaster");
+                  }
                   resetForm();
-                  navigate('/menumaster')
                 }}
               >
                 {({
@@ -62,7 +84,7 @@ const AddMenu = () => {
                               <Col className="col-sm">
                                 <div className="d-flex justify-content-sm-between">
                                   <h2 className="card-title mb-0 justify-content-sm-start">
-                                    <strong>Add Menu Master</strong>
+                                    <strong>Edit Menu Master</strong>
                                   </h2>
                                 </div>
                               </Col>
@@ -83,8 +105,8 @@ const AddMenu = () => {
                                       className="form-select"
                                       name="menugroup"
                                       onBlur={handleBlur}
-                                      value={values.menugroup}
-                                      onChange={handleChange}
+                                      value={menuid.menugroup}
+                                      onChange={(e) => setmenuid((prev) => ({ ...prev, menugroup: e.target.value }))}
                                     >
                                       <option value="">--select--</option>
                                       <option value="Set Up">Set Up</option>
@@ -116,9 +138,9 @@ const AddMenu = () => {
                                       aria-label="orders"
                                       ar
                                       ia-describedby="product-orders-addon"
-                                      onChange={handleChange}
+                                      onChange={(e) => setmenuid((prev) => ({ ...prev, menuname: e.target.value }))}
                                       onBlur={handleBlur}
-                                      value={values.menuname}
+                                      value={menuid.menuname}
                                     />
                                   </div>
 
@@ -136,8 +158,13 @@ const AddMenu = () => {
                                       id="isActive"
                                       label="Is Active"
                                       name="isActive"
-                                      checked={values.isActive}
-                                      onChange={handleChange}
+                                      checked={menuid.isActive}
+                                      onChange={(e) =>
+                                        setmenuid({
+                                          ...menuid,
+                                          isActive: e.target.checked,
+                                        })
+                                      }
                                     />
                                     <label className="me-2">Is Active</label>
                                   </div>
@@ -164,10 +191,7 @@ const AddMenu = () => {
         </Container>
       </div>
     </>
-  )
-}
+  );
+};
 
-
-
-
-export default AddMenu
+export default EditMenuMaster;

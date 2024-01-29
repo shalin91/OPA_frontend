@@ -14,12 +14,15 @@ import {
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
+import { useNavigate } from "react-router-dom";
 const AddDepGroup = () => {
   const { addDepGroup } = useContext(SignContext);
+  const navigate=useNavigate();
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("department group is required"),
   });
   const addDepartmentGroup = async (values) => {
+    console.log(values);
     const response = await addDepGroup(values);
 
     console.log(response);
@@ -44,9 +47,10 @@ const AddDepGroup = () => {
                   isActive: true,
                 }}
                 onSubmit={(values, { resetForm }) => {
-                  console.log(">>>",values)
+                  console.log(">>>", values);
                   addDepartmentGroup(values);
-                    resetForm();
+                  // resetForm();
+                  navigate('/department-group');
                 }}
               >
                 {({

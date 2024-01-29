@@ -14,25 +14,42 @@ import {
 import BreadCrumb from "../../Components/Common/BreadCrumb";
 import { TagsInput } from "react-tag-input-component";
 import SignContext from "../../contextAPI/Context/SignContext";
-const AddTask = () => {
+import { SignState } from "../../contextAPI/State/SignState";
+import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+const EditAddTask = () => {
   const [departmenttype, setdepartmentype] = useState(null);
-  const { GetallDepartmentType,addTask } = useContext(SignContext);
+  const { GetAddTaskById, GetallDepartmentType,setEditAddTaskValues } = useContext(SignContext);
+  const { id } = useParams();
+  const navigate=useNavigate();
+  const [task, settask] = useState({
+    departmentType: "",
+    taskName: "",
+    taskType: "",
+    accessLocation: "",
+    detail: "",
+    isActive: "",
+  });
+  const gettingtaskbyid = async () => {
+    const res = await GetAddTaskById(id);
+    settask(res.data);
+
+    console.log(res);
+  };
   const getalldtype = async () => {
     const response = await GetallDepartmentType();
-    // console.log(response);
+    console.log(response);
     setdepartmentype(response.data);
   };
-  const addDetails = async (values) => {
-    const response = await addTask(values);
 
-    console.log(response);
-  };
   useEffect(() => {
+    console.log(task);
+    // console.log(task.departmentType.name)
+  }, [task]);
+  useEffect(() => {
+    gettingtaskbyid();
     getalldtype();
   }, []);
-  useEffect(() => {
-    console.log(departmenttype);
-  }, [departmenttype]);
   return (
     <>
       <UiContent />
@@ -47,18 +64,15 @@ const AddTask = () => {
             <Col lg={12}>
               <Formik
                 // validationSchema={schema}
-                initialValues={
-                  {
-                    departmentType:"",
-                    taskName:"",
-                    taskType:"",
-                    accessLocation:"",
-                    detail:"",
-                    isActive: true,
-                  }
-                }
+                initialValues={{
+                  task,
+                }}
                 onSubmit={(values, { resetForm }) => {
-                    addDetails(values);
+                  
+                  const res=setEditAddTaskValues(id,task.departmentType._id,task.taskName,task.taskType,task.accessLocation,task.detail,task.isActive)
+                    if(res){
+                        navigate('/add-taskmaster');
+                    }
                     resetForm();
                 }}
               >
@@ -91,7 +105,7 @@ const AddTask = () => {
                           <div className="card-body">
                             <div className="live-preview">
                               <Row className="align-items-center g-3">
-                                <Col sm={4}>
+                                {/* <Col sm={4}>
                                   <label
                                     className="form-label mt-3"
                                     htmlFor="product-orders-input"
@@ -103,7 +117,8 @@ const AddTask = () => {
                                       className="form-select"
                                       name="departmentType"
                                       onBlur={handleBlur}
-                                      value={values.departmentType}
+                                      // value={values.departmentType}
+                                      value={task.departmentType ? task.departmentType.name : ""}
                                       onChange={handleChange}
                                     >
                                       <option value="">--select--</option>
@@ -116,7 +131,61 @@ const AddTask = () => {
                                         ))
                                       ) : (
                                         <option value="" disabled>
-                                          No department available
+                                          No locations available
+                                        </option>
+                                      )}
+                                    </select>
+                                  </div>
+                                  <p className="error text-danger">
+                                    {errors.checkupType &&
+                                      touched.checkupType &&
+                                      errors.checkupType}
+                                  </p>
+                                </Col> */}
+                                <Col sm={4}>
+                                  <label
+                                    className="form-label mt-3"
+                                    htmlFor="product-orders-input"
+                                  >
+                                    Department Types
+                                  </label>
+                                  <div className="">
+                                    <select
+                                      className="form-select"
+                                      name="departmentType"
+                                      onBlur={handleBlur}
+                                      value={
+                                        task.departmentType &&
+                                        typeof task.departmentType === "object"
+                                          ? task.departmentType._id
+                                          : ""
+                                      }
+                                      onChange={(e) =>
+                                        settask({
+                                          ...task,
+                                          departmentType: {
+                                            _id: e.target.value,
+                                            name: e.target.options[
+                                              e.target.selectedIndex
+                                            ].text,
+                                          },
+                                        })
+                                      }
+                                    >
+                                      <option value="">--select--</option>
+                                      {departmenttype &&
+                                      departmenttype.length > 0 ? (
+                                        departmenttype.map((type) => (
+                                          <option
+                                            key={type._id}
+                                            value={type._id}
+                                          >
+                                            {type.name}
+                                          </option>
+                                        ))
+                                      ) : (
+                                        <option value="" disabled>
+                                          No locations available
                                         </option>
                                       )}
                                     </select>
@@ -127,6 +196,7 @@ const AddTask = () => {
                                       errors.checkupType}
                                   </p>
                                 </Col>
+                                
                                 <Col sm={4}>
                                   <label
                                     className="form-label mt-3"
@@ -144,9 +214,14 @@ const AddTask = () => {
                                       aria-label="orders"
                                       ar
                                       ia-describedby="product-orders-addon"
-                                      onChange={handleChange}
+                                      onChange={(e) =>
+                                        settask({
+                                          ...task,
+                                          taskName: e.target.value,
+                                        })
+                                      }
                                       onBlur={handleBlur}
-                                      value={values.taskName}
+                                      value={task.taskName}
                                     />
                                   </div>
 
@@ -157,7 +232,6 @@ const AddTask = () => {
                                   </p>
                                 </Col>
 
-                                
                                 <Col sm={4}>
                                   <label
                                     className="form-label mt-3"
@@ -170,8 +244,13 @@ const AddTask = () => {
                                       className="form-select"
                                       name="taskType"
                                       onBlur={handleBlur}
-                                      value={values.taskType}
-                                      onChange={handleChange}
+                                      value={task.taskType}
+                                      onChange={(e) =>
+                                        settask({
+                                          ...task,
+                                          taskType: e.target.value,
+                                        })
+                                      }
                                     >
                                       <option value="">--select--</option>
                                       <option value="Form">Form</option>
@@ -197,8 +276,14 @@ const AddTask = () => {
                                       className="form-select"
                                       name="accessLocation"
                                       onBlur={handleBlur}
-                                      value={values.accessLocation}
-                                      onChange={handleChange}
+                                      value={task.accessLocation}
+                                      // onChange={handleChange}
+                                      onChange={(e) =>
+                                        settask({
+                                          ...task,
+                                          accessLocation: e.target.value,
+                                        })
+                                      }
                                     >
                                       <option value="">--select--</option>
                                       <option value="Yes">Yes</option>
@@ -225,8 +310,13 @@ const AddTask = () => {
                                       id="exampleFormControlTextarea5"
                                       rows="4"
                                       name="detail"
-                                      value={values.detail}
-                                      onChange={handleChange}
+                                      value={task.detail}
+                                      onChange={(e) =>
+                                        settask({
+                                          ...task,
+                                          detail: e.target.value,
+                                        })
+                                      }
                                     ></textarea>
                                   </div>
                                 </Col>
@@ -237,8 +327,13 @@ const AddTask = () => {
                                       id="isActive"
                                       label="Is Active"
                                       name="isActive"
-                                      checked={values.isActive}
-                                      onChange={handleChange}
+                                      checked={task.isActive}
+                                      onChange={(e) =>
+                                        settask({
+                                          ...task,
+                                          isActive: e.target.checked,
+                                        })
+                                      }
                                     />
                                     <label className="me-2">Is Active</label>
                                   </div>
@@ -268,4 +363,4 @@ const AddTask = () => {
   );
 };
 
-export default AddTask;
+export default EditAddTask;
