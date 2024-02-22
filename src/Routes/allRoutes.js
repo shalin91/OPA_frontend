@@ -125,6 +125,7 @@ import EditDepGrp from "../pages/MenuMaster/EditDepGrp";
 import EditDepType from "../pages/MenuMaster/EditDepType";
 import EditLocation from "../pages/MenuMaster/EditLocation";
 import EditEmployeeRole from "../pages/MenuMaster/EditEmployeeRole";
+import EditAddTask from "../pages/MenuMaster/EditAddTask";
 
 // import customerNew from "../pages/Ecommerce/EcommerceCustomers/customerNew";
 const authProtectedRoutes = [
@@ -218,6 +219,14 @@ const authProtectedRoutes = [
     component: (
       <SignState>
         <EditDepType />
+      </SignState>
+    ),
+  },
+  {
+    path: "/edit-task/:id",
+    component: (
+      <SignState>
+        <EditAddTask />
       </SignState>
     ),
   },

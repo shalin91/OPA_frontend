@@ -369,7 +369,17 @@ export const SignState = (props) => {
       console.error("Error during API call:", error);
     }
   };
-
+  const setEditAddTaskValues = async (id, departmentType,taskName,taskType,accessLocation,detail, isActive) => {
+    try {
+      const response = await axios.post(
+        `${url}/addtask/edittask/${id}`,
+        { departmentType,taskName,taskType,accessLocation,detail, isActive }
+      );
+      return response;
+    } catch (error) {
+      console.error("Error during API call:", error);
+    }
+  };
   const setEditLocationValues = async (id, name, isActive) => {
     try {
       const response = await axios.post(
@@ -432,6 +442,17 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   };
+  const addCommMaster=async(commMasterData)=>{
+    try {
+      const response = await axios.post(`
+        ${url}/communitymaster/addcommunitymessages,commMasterData`
+        
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  }
   const GetallAddTask = async () => {
     try {
       const response = await axios.get(`${url}/addtask/getalltask`, {});
@@ -495,6 +516,17 @@ export const SignState = (props) => {
       return { success: false, msg: "server Error" };
     }
   }
+  const GetAddTaskById=async(id)=>{
+    try {
+      const response = await axios.get(
+        `${url}/addtask/getspecifictask/${id}`,
+        {}
+      );
+      return response;
+    } catch (error) {
+      return { success: false, msg: "server Error" };
+    }
+  }
   return (
     <SignContext.Provider
       value={{
@@ -537,7 +569,10 @@ export const SignState = (props) => {
         DeleteEmployeeName,
         addTask,
         GetallAddTask,
-        DeleteAddTask
+        DeleteAddTask,
+        GetAddTaskById,
+        setEditAddTaskValues,
+        addCommMaster
       }}
     >
       {props.children}
